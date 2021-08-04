@@ -5,6 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'csv'
+
 ActivityCategory.destroy_all
 Activity.destroy_all
 Day.destroy_all
@@ -19,11 +22,23 @@ puts "creating fake users..."
 end
 
 puts "creating fake categories..."
-['Nature', 'Religion', 'Museum', 'Art', 'Music', 'History', 'Sport', 'Science'].each do |item|
+['Nature', 'Religion', 'Museum', 'Art', 'Music', 'History', 'Sport', 'Shopping'].each do |item|
 category = Category.new(name: item)
 category.save!
 end
 
+puts "creating Amadeus tags..."
+puts "reading csv file..."
+csv_text = Rails.root.join('lib', 'seeds', 'tags_category.csv')
+puts "parsing csv file..."
+puts "Creating tags..."
+CSV.foreach(csv_text, headers: true) do |row|
+  tag = Tag.new
+  tag.word = row[1]
+  category = Category.find_by_name(row[0])
+  tag.category = category if category
+  tag.save!
+end
 
 puts "creating fake trips..."
 User.all.sample(30).each do |user|

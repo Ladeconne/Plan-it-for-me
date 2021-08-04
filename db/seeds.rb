@@ -25,7 +25,7 @@ puts "creating fake users..."
 end
 
 puts "creating fake categories..."
-['Nature', 'Religion', 'Museum', 'Art', 'Music', 'History', 'Sport', 'Shopping'].each do |item|
+['Nature', 'Religion', 'Museum', 'Art', 'Music', 'History', 'Sport', 'Shopping', 'Unmatch'].each do |item|
 category = Category.new(name: item)
 category.save!
 puts "Creating category #{category.id}"

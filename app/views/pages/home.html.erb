@@ -2,8 +2,8 @@
 <p>Find me in app/views/pages/home.html.erb</p>
 
 <%= simple_form_for :search, url: categories_path, method: 'get' do |f| %>
-  <%= f.input :location %>
-  <%= f.input :start_date, as: :date, html5: true %>
-  <%= f.input :end_date, as: :date, html5: true %>
+  <%= f.input :city, error: @errors&.dig(:city) %>
+  <%= f.input :start_date, as: :date, html5: true, error: @errors&.dig(:start_date)%>
+  <%= f.input :end_date, as: :date, html5: true, error: @errors&.dig(:end_date) %>
   <%= f.submit class: "btn btn-success"%>
 <% end %>

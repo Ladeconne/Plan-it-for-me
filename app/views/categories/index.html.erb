@@ -1,9 +1,6 @@
 <h1>category index</h1>
 
 <%= simple_form_for :search, url: activities_path, method: 'get' do |f| %>
-  <%= f.hidden_field :location, value: params[:search][:location] %>
-  <%= f.hidden_field :start_date, value: params[:search][:start_date] %>
-  <%= f.hidden_field :end_date, value: params[:search][:end_date] %>
   <%= f.input :category, label: "Categories", collection: ["Nature","Religion", "Museum", "Art", "Music", "History", "Sport", "Science"], wrapper_html: { class: 'form-group' }, as: :check_boxes, input_html: {name: "search[categories][]", multiple: true} %>
   <!-- ADD CHECKBOX FORM -->
 

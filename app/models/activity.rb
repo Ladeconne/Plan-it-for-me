@@ -4,4 +4,6 @@ class Activity < ApplicationRecord
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
+
+  validates :picture, :name, :description, :link, :address, presence: true
 end

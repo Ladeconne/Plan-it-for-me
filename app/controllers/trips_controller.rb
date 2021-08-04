@@ -1,5 +1,6 @@
 class TripsController < ApplicationController
 
+
   def your_trip
     fake_activities
     # current_user = User.find_by_id(session[:current_user_id])
@@ -36,4 +37,5 @@ class TripsController < ApplicationController
     @activities << activity if activity.latitude
     end
   end
+
 end

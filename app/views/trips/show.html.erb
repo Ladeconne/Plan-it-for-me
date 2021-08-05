@@ -8,6 +8,11 @@
       <% end %>
    </div>
   <% end %>
+  <%= link_to "Delete",
+                      trip_path(@trip),
+                      class: "btn btn-warning",
+                      method: :delete,
+                      data: { confirm: "Are you sure?" } %>
 </div>
 
 

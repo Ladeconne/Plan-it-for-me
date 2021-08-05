@@ -90,7 +90,6 @@ Trip.all.each do |trip|
                  category: category)
         activity_category.save!
         puts "Creating activity_category #{activity_category.id}"
-
       end
     end
   end

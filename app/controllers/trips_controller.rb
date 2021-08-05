@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: :show
+  before_action :set_trip, only: [:show, :destroy]
   def index
     @trips = Trip.where(user: current_user)
   end
@@ -15,6 +15,10 @@ class TripsController < ApplicationController
     end
   end
 
+  def destroy
+    @trip.destroy
+    redirect_to trips_path
+  end
 
 
   def your_trip

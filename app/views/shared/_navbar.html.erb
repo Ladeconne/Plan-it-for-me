@@ -1,14 +1,16 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to :root, class: "navbar-brand" do %>
-    <div class="d-flex">
-      <%= image_tag "cat.svg" %>
-      <h1>PLAN IT FOR ME</h1>
-    </div>
-  <% end %>
-  <%= link_to "About", "#", class: "nav-link" %>
-  <% if user_signed_in?  %>
-    <%= link_to "Saved Trips", trips_path, class: "nav-link" %>
-  <% end %>
+  <div class="d-flex align-items-baseline">
+    <%= link_to :root, class: "navbar-brand" do %>
+      <div class="d-flex align-items-baseline">
+        <%= image_tag "cat.svg" %>
+        <h1 class="m-0">PLAN IT FOR ME</h1>
+      </div>
+    <% end %>
+    <%= link_to "About", "#", class: "nav-link" %>
+    <% if user_signed_in?  %>
+      <%= link_to "Saved Trips", trips_path, class: "nav-link" %>
+    <% end %>
+  </div>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

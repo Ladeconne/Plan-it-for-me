@@ -57,7 +57,7 @@ class TripsController < ApplicationController
     @activities = []
     addresses = ['Rue de Rivoli, 75001 Paris', "1 Rue de la Légion d'Honneur, 75007 Paris", "Pl. du Trocadéro et du 11 Novembre, 75116 Paris", "Rue Antoine Bourdelle, 75015 Paris", 'Rue Chaptal, 75009 Paris', 'Rue Geoffroy-Saint-Hilaire, 75005 Paris']
     names = ['A Museum', 'B Museum', 'X park', 'X Sprt Ground', 'X Church', 'Z Sport']
-    rand(1..6).times do
+    rand(4..6).times do
     # session[:activities].each do
     activity = Activity.new(
                picture_url: 'https://images.unsplash.com/photo-1508180588132-ec6ec3d73b3f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80.png',

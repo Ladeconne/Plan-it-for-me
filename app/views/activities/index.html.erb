@@ -1,1 +1,10 @@
 <h1>Acitivities</h1>
+
+<form action="">
+  <%= @activities.each do |activity| %>
+    <div>
+      <input type="checkbox" id="<%activity[:name]%>" name="<%activity[:name]%>">
+      <label for="<%activity[:name]%>"><%activity[:name]%></label>
+    </div>
+  <% end %>
+</form>

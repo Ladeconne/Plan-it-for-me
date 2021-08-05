@@ -1,1 +1,23 @@
-<h1>Acitivities</h1>
+<h1>Choose an acitivity</h1>
+
+<%= @activities %>
+<hr>
+
+<!-- the list of activities in a specific category -->
+<% @activities.values.each do |category| %>
+  <!-- the specific activity in a list of activities -->
+  <% category.each do |activity| %>
+    <p>name: <%= activity.name %></p>
+    <p>description: <%= activity.description %></p>
+  <% end %>
+<% end %>
+
+<form action="/action_page.php" method="get">
+  <% @activities.values.each do |category| %>
+    <% category.each do |activity| %>
+      <input type="checkbox" name="<% activity.name %>" value="<% activity.name %>">
+      <label for="<% activity.name %>"> <%= activity.name %></label><br>
+    <% end %>
+  <% end %>
+  <input type="submit" value="Submit">
+</form>

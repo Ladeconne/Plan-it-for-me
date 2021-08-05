@@ -13,7 +13,7 @@ private
 
 
   has_many :activities
-  has_many :days
+  has_many :days, dependent: :destroy
 
   def date_future?
     return if seed

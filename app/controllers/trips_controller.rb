@@ -1,11 +1,25 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: :show
+  before_action :set_trip, only: [:show, :destroy]
   def index
     @trips = Trip.where(user: current_user)
   end
 
   def show
+    @activities = @trip.activities.geocoded
+    @markers = @activities.map do |activity|
+      {
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+      }
+    end
   end
+
+  def destroy
+    @trip.destroy
+    redirect_to trips_path
+  end
+
 
   def your_trip
     fake_activities
@@ -78,6 +92,8 @@ class TripsController < ApplicationController
     @activities << activity if activity.latitude
     end
   end
+
+  private
 
   def set_trip
     @id = params[:id]

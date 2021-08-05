@@ -5,7 +5,7 @@ class Day < ApplicationRecord
   validates :date, presence: true
 
   # validate :date_future?, on: :create
-  has_many :activities
+  has_many :activities, dependent: :destroy
 
   validate :date_future?, on: :create
 

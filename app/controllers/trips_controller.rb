@@ -5,7 +5,17 @@ class TripsController < ApplicationController
   end
 
   def show
+    @activities = @trip.activities.geocoded
+    @markers = @activities.map do |activity|
+      {
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+      }
+    end
   end
+
+
 
   def your_trip
     fake_activities
@@ -78,6 +88,8 @@ class TripsController < ApplicationController
     @activities << activity if activity.latitude
     end
   end
+
+  private
 
   def set_trip
     @id = params[:id]

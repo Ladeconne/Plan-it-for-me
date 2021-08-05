@@ -57,6 +57,7 @@ User.all.sample(4).each do |user|
              end_date: end_date,
              favourite: false,
              user: user)
+  trip.seed = true
   trip.save!
   puts "Creating trip #{trip.id}"
 end

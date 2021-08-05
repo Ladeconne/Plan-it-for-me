@@ -2,6 +2,7 @@ class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :destroy]
   def index
     @trips = Trip.where(user: current_user)
+    raise
   end
 
   def show
@@ -92,6 +93,10 @@ class TripsController < ApplicationController
     @activities << activity if activity.latitude
     end
   end
+
+  def chosen_activities
+    @chosen_activities = []
+
 
   private
 

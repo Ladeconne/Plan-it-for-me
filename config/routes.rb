@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :categories
   resources :activities
 
+  get '/components', to: 'pages#components', as: :components
+
 end

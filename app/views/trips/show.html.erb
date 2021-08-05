@@ -1,0 +1,13 @@
+<h1><%= @trip.city %></h1>
+<div>
+  <% @trip.days.each do |day| %>
+   <div>
+      <%= day.date %>
+      <% day.activities.each do |activity| %>
+        <%= activity.name %>
+      <% end %>
+   </div>
+  <% end %>
+</div>
+
+

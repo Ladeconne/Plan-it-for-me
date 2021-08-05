@@ -70,7 +70,7 @@ Trip.all.each do |trip|
     day.save!
     puts "Creating day #{day.id}"
 
-    rand(1..4).times do
+    3.times do
       activity = Activity.new(
                  picture_url: 'https://images.unsplash.com/photo-1508180588132-ec6ec3d73b3f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80.png',
                  name: ['A Museum', 'B Museum', 'X park', 'X Sprt Ground', 'X Church'].sample,

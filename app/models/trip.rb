@@ -6,4 +6,5 @@ class Trip < ApplicationRecord
   # validate :date_future?, on: :create
 
   has_many :activities
+  has_many :days
 end

@@ -5,8 +5,9 @@
 $body-font: "Roboto Mono", monospace;
 $headers-font: "Roboto Mono", monospace;
 
-h1 {
-  font-family: "Roboto Mono", monospace;
+h1,
+button {
+  font-family: "Roboto Mono", monospace !important;
 }
 
 h2 {
@@ -14,7 +15,8 @@ h2 {
   font-weight: 200;
 }
 
-p {
+p,
+input {
   font-family: "Roboto Mono", monospace;
 }
 

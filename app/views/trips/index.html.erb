@@ -1,0 +1,18 @@
+ <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+
+<h1>Trip history</h1>
+<div>
+  <% if @trips.empty? %>
+    <p>Uh-oh! There' s no trip yet!</p>
+  <% end %>
+  <% @trips.each do |trip| %>
+  <div>
+    <%= image_tag "https://source.unsplash.com/1600x900/?#{trip.city}", height: 180, width: 250 %>
+  </div>
+  <div>
+    <%= trip.city %>
+    <%= trip.start_date %> - <%= trip.end_date %>
+  </div>
+  <%= link_to 'show', trip_path(trip), class: "btn btn-success" %>
+<% end %>
+</div>

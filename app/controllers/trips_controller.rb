@@ -1,4 +1,24 @@
 class TripsController < ApplicationController
+  before_action :set_trip, only: [:show, :destroy]
+  def index
+    @trips = Trip.where(user: current_user)
+  end
+
+  def show
+    @activities = @trip.activities.geocoded
+    @markers = @activities.map do |activity|
+      {
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+      }
+    end
+  end
+
+  def destroy
+    @trip.destroy
+    redirect_to trips_path
+  end
 
 
   def your_trip
@@ -73,4 +93,10 @@ class TripsController < ApplicationController
     end
   end
 
+  private
+
+  def set_trip
+    @id = params[:id]
+    @trip = Trip.find(@id)
+  end
 end

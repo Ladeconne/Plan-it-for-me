@@ -1,5 +1,8 @@
 {
-  "name": "_plan_it_for_me",
+  "name": "plan_it_for_me",
+  "engines": {
+    "node": "14.15.4"
+  },
   "private": true,
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.7.2",
@@ -19,4 +22,5 @@
   "devDependencies": {
     "webpack-dev-server": "^3.11.2"
   }
+
 }

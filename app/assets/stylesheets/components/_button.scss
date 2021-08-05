@@ -1,0 +1,11 @@
+.big-button {
+  color: #6a8683;
+  border-bottom: 8px solid #6a8683;
+  font-weight: bolder;
+  padding-bottom: 0px;
+  font-size: 30px;
+  &:hover {
+    color: rgba(106, 134, 131, 0.5);
+    border-bottom: 8px solid rgba(106, 134, 131, 0.5);
+  }
+}

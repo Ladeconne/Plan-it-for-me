@@ -2,6 +2,7 @@
   justify-content: space-between;
   border-bottom: 5px solid #e5e5e5;
   background: white;
+  z-index: 9;
   position: fixed;
   width: 100%;
 }
@@ -17,4 +18,26 @@
 .navbar-end {
   justify-content: space-between;
   background: white;
+}
+
+.progress-bar {
+  background-color: #343a40;
+}
+
+.progress-a {
+  width: 40px;
+  height: 40px;
+  margin-left: 342px;
+}
+
+.progress-b {
+  width: 40px;
+  height: 40px;
+  margin-left: 709px;
+}
+
+.progress-c {
+  width: 40px;
+  height: 40px;
+  margin-left: 1082px;
 }

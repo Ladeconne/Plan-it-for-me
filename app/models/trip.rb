@@ -11,6 +11,10 @@ class Trip < ApplicationRecord
 
 private
 
+
+  has_many :activities
+  has_many :days
+
   def date_future?
     return if seed
     errors.add(:start_date, "can't be in the past") if start_date < Date.today
@@ -24,4 +28,5 @@ private
       errors.add(:end_date, "must be after the start date")
     end
   end
+
 end

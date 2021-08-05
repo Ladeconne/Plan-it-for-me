@@ -1,5 +1,11 @@
 class TripsController < ApplicationController
+  before_action :set_trip, only: :show
+  def index
+    @trips = Trip.where(user: current_user)
+  end
 
+  def show
+  end
 
   def your_trip
     fake_activities
@@ -73,4 +79,8 @@ class TripsController < ApplicationController
     end
   end
 
+  def set_trip
+    @id = params[:id]
+    @trip = Trip.find(@id)
+  end
 end

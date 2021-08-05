@@ -3,6 +3,10 @@ class Day < ApplicationRecord
 
   belongs_to :trip
   validates :date, presence: true
+
+  # validate :date_future?, on: :create
+  has_many :activities
+
   validate :date_future?, on: :create
 
   private
@@ -12,4 +16,5 @@ class Day < ApplicationRecord
     return if !date.present?
     errors.add(:date, "can't be in the past") if date < Date.today
   end
+
 end

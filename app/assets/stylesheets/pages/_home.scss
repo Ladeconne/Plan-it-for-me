@@ -1,1 +1,56 @@
 // Specific CSS for your home-page
+
+#home {
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 0.7fr;
+    grid-column-gap: 24px;
+    align-items: center;
+    @media screen and (max-width: 990px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media screen and (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form {
+    width: 100%;
+    position: relative;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    padding-top: 32px !important;
+    max-height: 260px;
+    h2 {
+      text-align: center;
+      background-color: white;
+      width: 60%;
+      position: absolute;
+      top: -10%;
+      margin: auto;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .picture-card {
+    position: relative;
+    height: 390px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    padding: 16px;
+    padding-bottom: 32px;
+    p {
+      text-align: center;
+      background-color: white;
+      width: 60%;
+      position: absolute;
+      top: -4%;
+      margin: auto;
+      left: 0%;
+      right: 0;
+    }
+    .picture-card-img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}

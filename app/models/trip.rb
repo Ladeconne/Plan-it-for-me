@@ -1,7 +1,7 @@
 class Trip < ApplicationRecord
   attr_accessor :seed
 
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :activities
 
   validates :city, :start_date, presence: true

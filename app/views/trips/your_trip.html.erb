@@ -16,7 +16,7 @@
   <% @result.each do |t| %>
     <ul>
       <li>
-        <%= t[:day] %>
+        <%= t[:day].date %>
         <div>
           <% t[:activities].each do |act| %>
             <%= act.name %> |
@@ -24,7 +24,11 @@
         </div>
       </li>
     </ul>
-<% end %>
+
+  <% end %>
+  <% if !user_signed_in? %>
+    <%= link_to 'Save', new_user_registration_path, class: 'btn btn-info' %>
+  <% end %>
 
     <h2><%= @city %></h2>
   </div>

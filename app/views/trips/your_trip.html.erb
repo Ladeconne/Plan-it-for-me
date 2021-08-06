@@ -2,16 +2,12 @@
 <div id="your-trip">
 
   <div class="container">
-  <div class="mb-1 mx-auto">
+  <div class="mb-4 mx-auto">
         <%= image_tag "cat3.svg", class: "progress-icon progress-c" %>
       </div>
       <div class="row mb-4 align-items-center">
-        <div class="col-1">
-          <%= link_to "#" do %>
-            <i class="chevron fas fa-chevron-left"></i>
-          <% end %>
-        </div>
-        <div class="col-10">
+
+        <div class="col-12">
           <div class="progress_bar">
 
             <div class="progress">
@@ -19,11 +15,7 @@
             </div>
           </div>
         </div>
-        <div class="col-1">
-          <%= link_to "#" do %>
-            <i class="chevron fas fa-chevron-right"></i>
-          <% end %>
-        </div>
+
       </div>
   </div>
 
@@ -48,7 +40,7 @@
             <% else %>
               <%= link_to "", "#" %>
             <% end %>
-            <h2><%= @city %><br/><%= @next == 1 || !params[:day] ? 'All dates' : @date %></h2>
+            <h2><%= @city.downcase.capitalize %><br/><%= @next == 1 || !params[:day] ? 'All dates' : @date %></h2>
             <% if @next %>
               <%= link_to next_day_path(day: @next == 1 ? 1 : params[:day].to_i + 1) do  %>
                 <i class="chevron fas fa-chevron-right"></i>
@@ -99,7 +91,7 @@
 
       <div class="col-md-6 col-sm-12 ">
         <div class="card-polaroid">
-         <h2><%= @city %></h2>
+         <h2><%= @city.downcase.capitalize %></h2>
            <div id="map"
              style="width: 100%; height: 600px;"
              data-markers="<%= @markers.to_json %>"

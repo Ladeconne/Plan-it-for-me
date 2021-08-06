@@ -2,7 +2,6 @@ class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :destroy]
   def index
     @trips = Trip.where(user: current_user)
-    raise
   end
 
   def show

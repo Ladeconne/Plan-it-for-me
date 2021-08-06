@@ -5,7 +5,7 @@
     </div>
     <div class="row mb-4 align-items-center">
       <div class="col-1">
-        <%= link_to "#" do %>
+        <%= link_to :back do %>
           <i class="chevron fas fa-chevron-left"></i>
         <% end %>
       </div>
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="col-1">
-        <button type="submit" form='category-form'><i class="chevron fas fa-chevron-right"></i></button>
+        <button class="btn" type="submit" form='category-form'><i class="chevron fas fa-chevron-right"></i></button>
       </div>
     </div>
     <h1>SELECT YOUR INTERESTS:</h1>
@@ -27,7 +27,7 @@
     <div class="row justify-content-center">
       <% ['Nature', 'Religion', 'Museum', 'Art', 'Music', 'History', 'Sport', 'Shopping'].each do |category|  %>
         <div class="col-lg-3 col-md-6 interest-col">
-          <input class="image-checkbox" hidden type="checkbox" value="search[categories][]" id="<%=category%>">
+          <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="<%=category%>" value="<%=category%>">
           <label for="<%=category%>"><%= render 'shared/polaroid_card',  name: category %></label>
         </div>
       <% end %>

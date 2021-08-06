@@ -28,22 +28,55 @@
     object-fit: cover;
   }
 
+  .info-card {
+    margin: 7px auto;
+  }
+}
+
+.image-checkbox {
+  &:checked {
+    & ~ label .card-polaroid {
+      border: 6px solid rgba(106, 134, 131, 1);
+    }
+  }
+}
+
+.card {
+  width: 100%;
+  position: relative;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  padding-top: 32px !important;
+  h2 {
+    font-size: 1rem;
+    text-align: center;
+    background-color: white;
+    width: 80%;
+    position: absolute;
+    top: -5%;
+    margin: auto;
+    left: 0;
+    right: 0;
+  }
   .card-content {
     margin-top: -15px;
     width: 100%;
     img {
       width: 100%;
       border-radius: 1px;
-      max-height: 220px;
     }
     p {
       margin: 0;
+    }
+    i {
+      color: $red;
+      cursor: pointer;
     }
   }
   .info-card {
     margin: 7px auto;
   }
 }
+
 
 .image-checkbox {
   &:checked {
@@ -109,3 +142,4 @@
 .card-product .card-product-infos {
   padding: 16px;
 }
+

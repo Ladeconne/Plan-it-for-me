@@ -3,7 +3,6 @@
     position: relative;
     border: 2px solid rgba(0, 0, 0, 0.4);
     padding-top: 32px !important;
-    max-height: 260px;
     h2 {
       font-size: 1rem;
       text-align: center;
@@ -24,6 +23,10 @@
       }
       p {
         margin: 0;
+      }
+      i {
+        color: $red;
+        cursor: pointer;
       }
     }
     .info-card {

@@ -1,25 +1,44 @@
-<div class="container">
-  <div class="mb-1">
-    <%= image_tag "cat1.svg", class: "progress-a" %>
-  </div>
+<div id="interests">
+  <div class="container">
+    <div class="mb-1 mx-auto">
+      <%= image_tag "cat1.svg", class: "progress-icon progress-a" %>
+    </div>
+    <div class="row mb-4 align-items-center">
+      <div class="col-1">
+        <%= link_to "#" do %>
+          <i class="chevron fas fa-chevron-left"></i>
+        <% end %>
+      </div>
+      <div class="col-10">
+        <div class="progress_bar">
 
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
-  </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-1">
+        <button type="submit" form='category-form'><i class="chevron fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <h1>SELECT YOUR INTERESTS:</h1>
+
+  <%= simple_form_for :search, url: activities_path, method: 'get', html: { id: 'category-form' } do |f| %>
+    <div class="row justify-content-center">
+      <% ['Nature', 'Religion', 'Museum', 'Art', 'Music', 'History', 'Sport', 'Shopping'].each do |category|  %>
+        <div class="col-lg-3 col-md-6 interest-col">
+          <input class="image-checkbox" hidden type="checkbox" value="search[categories][]" id="<%=category%>">
+          <label for="<%=category%>"><%= render 'shared/polaroid_card',  name: category %></label>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+    <%# <%= f.input :category, label: "Categories", collection: ["Nature","Religion", "Museum", "Art", "Music", "History", "Sport", "Science"], wrapper_html: { class: 'form-group' }, as: :check_boxes, input_html: {name: "search[categories][]", multiple: true} %>
+    <!-- ADD CHECKBOX FORM -->
+
+
+
+    <!-- This button should be the "next" button -->
+    <%#= f.submit class: "btn btn-success"%>
 </div>
-
-
-
-
-
-<h1>category index</h1>
-
-<%= simple_form_for :search, url: activities_path, method: 'get' do |f| %>
-  <%= f.input :category, label: "Categories", collection: ["Nature","Religion", "Museum", "Art", "Music", "History", "Sport", "Science"], wrapper_html: { class: 'form-group' }, as: :check_boxes, input_html: {name: "search[categories][]", multiple: true} %>
-  <!-- ADD CHECKBOX FORM -->
-
-
-
-  <!-- This button should be the "next" button -->
-  <%= f.submit class: "btn btn-success"%>
-<% end %>

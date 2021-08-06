@@ -13,7 +13,11 @@ button {
 h2 {
   font-family: "Roboto Mono", monospace;
   font-weight: 200;
+  .header{
+    font-size: medium;
+  }
 }
+
 
 p,
 input, label {

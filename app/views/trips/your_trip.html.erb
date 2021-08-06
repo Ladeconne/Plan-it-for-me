@@ -1,59 +1,116 @@
-<h1><%= @result.length %> days in <%= @city %></h1>
 
-<div class="container">
-<div class="mb-1 mx-auto">
-      <%= image_tag "cat3.svg", class: "progress-icon progress-c" %>
-    </div>
-    <div class="row mb-4 align-items-center">
-      <div class="col-1">
-        <%= link_to "#" do %>
-          <i class="chevron fas fa-chevron-left"></i>
-        <% end %>
-      </div>
-      <div class="col-10">
-        <div class="progress_bar">
+<div id="your-trip">
 
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
+  <div class="container">
+  <div class="mb-1 mx-auto">
+        <%= image_tag "cat3.svg", class: "progress-icon progress-c" %>
       </div>
-      <div class="col-1">
-        <%= link_to "#" do %>
-          <i class="chevron fas fa-chevron-right"></i>
-        <% end %>
-      </div>
-    </div>
-</div>
-
-<div class="container">
-  <div>
-    <p><%#= @day_activities.first[:day] %>  <%#= @day_activities.last[:day] %></p>
-  <% @result.each do |t| %>
-    <ul>
-      <li>
-        <%= t[:day].date %>
-        <div>
-          <% t[:activities].each do |act| %>
-            <%= act.name %> |
+      <div class="row mb-4 align-items-center">
+        <div class="col-1">
+          <%= link_to "#" do %>
+            <i class="chevron fas fa-chevron-left"></i>
           <% end %>
         </div>
-      </li>
-    </ul>
+        <div class="col-10">
+          <div class="progress_bar">
 
-  <% end %>
-  <% if !user_signed_in? %>
-    <%= link_to 'Save', new_user_registration_path, class: 'btn btn-info' %>
-  <% end %>
-
-    <h2><%= @city %></h2>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-1">
+          <%= link_to "#" do %>
+            <i class="chevron fas fa-chevron-right"></i>
+          <% end %>
+        </div>
+      </div>
   </div>
 
 
-  <div id="map"
-     style="width: 100%; height: 600px;"
-     data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+
+
+  <div class="container my-5">
+    <div class="row">
+
+      <div class="col-md-6 col-sm-12 ">
+        <div class="activities-card">
+
+          <div class="header">
+            <% if params[:day] && (params[:day].to_i - 1).zero? %>
+              <%= link_to your_trip_path do  %>
+                <i class="chevron fas fa-chevron-left"></i>
+              <% end %>
+            <% elsif @prev %>
+              <%= link_to prev_day_path(day: params[:day].to_i - 1) do  %>
+                <i class="chevron fas fa-chevron-left"></i>
+              <% end %>
+            <% else %>
+              <%= link_to "", "#" %>
+            <% end %>
+            <h2><%= @city %><br/><%= @next == 1 || !params[:day] ? 'All dates' : @date %></h2>
+            <% if @next %>
+              <%= link_to next_day_path(day: @next == 1 ? 1 : params[:day].to_i + 1) do  %>
+                <i class="chevron fas fa-chevron-right"></i>
+              <% end %>
+            <% else %>
+              <%= link_to "", "#" %>
+            <% end %>
+          </div>
+
+          <% if params[:day] %>
+            <% @result.each do |t| %>
+              <% t[:activities].each do |act| %>
+
+                <div class="card-product rounded-3 my-2">
+                  <%= image_tag act.picture_url %>
+                  <div class="card-product-infos">
+                    <h2><%= act.name %></h2>
+                  </div>
+                </div>
+
+                <% end %>
+            <% end %>
+          <% else %>
+            <ul>
+              <% @result.each do |t| %>
+                <li>
+                  <%= t[:day].date %>
+                  <div>
+                    <% t[:activities].each do |act| %>
+                      <%= act.name %> |
+                    <% end %>
+                  </div>
+                </li>
+              <% end %>
+              </ul>
+            <% end %>
+
+
+           </div>
+      <div class="my-5">
+        <% if !user_signed_in? %>
+          <%= link_to 'Save', new_user_registration_path, class: 'btn btn-info' %>
+        <% end %>
+      </div>
+
+
+    </div>
+
+      <div class="col-md-6 col-sm-12 ">
+        <div class="card-polaroid">
+         <h2><%= @city %></h2>
+           <div id="map"
+             style="width: 100%; height: 600px;"
+             data-markers="<%= @markers.to_json %>"
+             data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+           </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 
   </div>
 </div>

@@ -1,4 +1,4 @@
-<h1><%= @result.length %> days in <%= @city %></h1>
+
 
 <div class="container">
   <div class="mb-1">
@@ -10,34 +10,46 @@
   </div>
 </div>
 
-<div class="container">
-  <div>
-    <p><%#= @day_activities.first[:day] %>  <%#= @day_activities.last[:day] %></p>
-  <% @result.each do |t| %>
-    <ul>
-      <li>
-        <%= t[:day].date %>
-        <div>
-          <% t[:activities].each do |act| %>
-            <%= act.name %> |
-          <% end %>
-        </div>
-      </li>
-    </ul>
-
-  <% end %>
-  <% if !user_signed_in? %>
-    <%= link_to 'Save', new_user_registration_path, class: 'btn btn-info' %>
-  <% end %>
-
-    <h2><%= @city %></h2>
-  </div>
 
 
-  <div id="map"
-     style="width: 100%; height: 600px;"
-     data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+<div class="container my-5">
+
+  <div class="row">
+
+    <div class="col-md-6 col-sm-12 ">
+      <h2><%= @result.length %> days in <%= @city %></h2>
+      <p><%#= @day_activities.first[:day] %>  <%#= @day_activities.last[:day] %></p>
+    <% @result.each do |t| %>
+      <ul>
+        <li>
+          <%= t[:day].date %>
+          <div>
+            <% t[:activities].each do |act| %>
+              <%= act.name %> |
+            <% end %>
+          </div>
+        </li>
+      </ul>
+
+    <% end %>
+    <% if !user_signed_in? %>
+      <%= link_to 'Save', new_user_registration_path, class: 'btn btn-info' %>
+    <% end %>
 
   </div>
+
+    <div class="col-md-6 col-sm-12 ">
+       <h2><%= @city %></h2>
+       <div id="map"
+         class="card-content"
+         style="width: 100%; height: 600px;"
+         data-markers="<%= @markers.to_json %>"
+         data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+       </div>
+    </div>
+
+  </div>
+
+</div>
+
 </div>

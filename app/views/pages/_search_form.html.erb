@@ -1,0 +1,30 @@
+<form novalidate="novalidate" class="search" action="/categories" accept-charset="UTF-8" method="get">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <div class="search-form-control form-group">
+  <%# Form Input %>
+    <div class="form-body d-flex justify-content-center align-items-center flex-column">
+      <div class="col-12 p-3">
+        <input class="form-control string required" type="text" placeholder="Enter destination city" name="search[city]" id="search_query" />
+        <small class="text-danger"><%=  @errors&.dig(:city) %></small>
+      </div>
+      <div class="col-12 p-3">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-6">
+          <input class="form-control string required" type="date" name="search[start_date]" id="search_query" placeholder="Start date"/>
+          <small class="text-danger"><%=  @errors&.dig(:start_date) %></small>
+        </div>
+        <div class="col-6">
+          <input class="form-control string required" type="date" name="search[end_date]" id="search_query" placeholder="End date" />
+          <small class="text-danger"><%=  @errors&.dig(:end_date) %></small>
+
+        </div>
+      </div>
+      </div>
+      <div class="col-12 text-center">
+        <button name="button" type="submit" class="btn btn-flat big-button">
+          LET'S GO
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

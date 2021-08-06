@@ -9,3 +9,12 @@
     border-bottom: 8px solid rgba(106, 134, 131, 0.5);
   }
 }
+
+.chevron {
+  font-size: 58px;
+}
+
+.chevron,
+picture {
+  color: rgba($color: #000000, $alpha: 0.4);
+}

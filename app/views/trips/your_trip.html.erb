@@ -1,4 +1,14 @@
-<h1><%#= @day_activities.length %> days in <%= @city %></h1>
+<h1><%= @result.length %> days in <%= @city %></h1>
+
+<div class="container">
+  <div class="mb-1">
+    <%= image_tag "cat3.svg", class: "progress-c" %>
+  </div>
+
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+</div>
 
 <div class="container">
   <div>
@@ -14,10 +24,12 @@
         </div>
       </li>
     </ul>
+
   <% end %>
   <% if !user_signed_in? %>
     <%= link_to 'Save', new_user_registration_path, class: 'btn btn-info' %>
   <% end %>
+
     <h2><%= @city %></h2>
   </div>
 

@@ -1,12 +1,15 @@
 class PagesController < ApplicationController
   # skip_before_action :authenticate_user!, only: [ :home ]
-  before_action :clear_session, only: [ :home ]
+  before_action :clear_session, only: [:home]
 
   def home
     session[:current_trip] = nil
   end
 
   def components
+  end
+
+  def about
   end
 
   private

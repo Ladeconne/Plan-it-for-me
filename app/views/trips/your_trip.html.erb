@@ -56,10 +56,10 @@
               <ul>
                 <% @result.each do |t| %>
                   <li>
-                    <%= t[:day].date %>
+                    <p class="date"><%= t[:day].date.strftime("%A, %b %d") %></p>
                     <div>
                       <% t[:activities].each do |act| %>
-                        <%= act.name %> |
+                        <p class="activity"><%= act.name %></p>
                       <% end %>
                     </div>
                   </li>

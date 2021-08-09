@@ -1,0 +1,33 @@
+.activity-popup{
+  position: fixed;
+  width: 100%;
+  background: #00000082;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  .popup-card{
+    background: white;
+    width: 55%;
+    height: 50%;
+  }
+  .popup-image{
+    width: 35%;
+    height: 35%;
+    object-fit: cover;
+  }
+  h2{
+    margin: 2%;
+  }
+  p{
+    margin: 2%;
+  }
+}
+.popup_link {
+  text-decoration: underline;
+  &:hover{
+    text-decoration: none;
+  }
+}

@@ -27,7 +27,7 @@ import "bootstrap";
 import { initMapbox } from '../plugins/init_mapbox';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import { popUpWindow } from '../packs/popup';
-
+import { initLoader } from '../components/init_loader';
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
@@ -37,6 +37,8 @@ document.addEventListener('turbolinks:load', () => {
 
   initMapbox();
   initAutocomplete();
-  validateDates()
-  popUpWindow()
+  validateDates();
+  popUpWindow();
+  initLoader();
+
 });

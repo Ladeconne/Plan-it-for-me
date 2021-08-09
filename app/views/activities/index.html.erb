@@ -23,30 +23,46 @@
       </button>
     </div>
   </div>
+</div>
 <!---Nav Bar End --->
-  <h1>SELECT YOUR ACTIVITIES:</h1>
-
-   <%= simple_form_for :search, url: your_trip_path, method: 'get', html: { id: 'activity-form' } do |f| %>
-    <div class="row justify-content-center">
-      <% @activities.each do |category, activities|  %>
-        <div class="col-12">
-          <h2><%=category.upcase%></h2>
-          <div class="row">
-            <% activities.each do |activity| %>
-              <div class="col-lg-2 col-md-6 interest-col">
-                <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name%>" value="<%=activity.name %>">
-                <label for="<%=activity.name%>"><%= render 'shared/activity_card',  name: activity.name %></label>
+<div class="selection mb-5">
+  <div class="row">
+    <div class="col-4">
+      <h1>SELECT YOUR ACTIVITIES:</h1>
+      <div class="card-itinerary mt-5">
+        <h2>Your Itinerary</h2>
+        <% @activities.each do |category, activities| %>
+          <p><%= category %></p>
+          <ol>
+          <% activities.each do |activity| %>
+            <li><p><%=activity.name%></p></li>
+          <% end %>
+          </ol>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-8">
+      <%= simple_form_for :search, url: your_trip_path, method: 'get', html: { id: 'activity-form' } do |f| %>
+        <div class="row justify-content-center">
+          <% @activities.each do |category, activities|  %>
+            <div class="col-12">
+              <h2><%=category.upcase%></h2>
+              <div class="row horizontal-scroll">
+              <% 2.times do  %>
+                <% activities.each do |activity| %>
+                  <div class="col-lg-3 col-md-6 interest-col">
+                    <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name%>" value="<%=activity.name %>">
+                    <label for="<%=activity.name%>"><%= render 'shared/activity_card',  name: activity.name.truncate_words(4) %></label>
+                  </div>
+                <% end %>
+              <% end %>
               </div>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         </div>
-
       <% end %>
     </div>
-  <% end %>
-
-  <!---TANNERS FORM --->
-  <!---TANNERS FORM --->
+  </div>
 </div>
-
+  
   <!---make row, on row css overflow-x: scroll + width: XXpx; --->

@@ -7,19 +7,18 @@
   padding-top: 29px;
   &:hover {
     border: 2px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
   }
+
   h2 {
     font-weight: lighter;
     font-size: 29px;
     line-height: 38px;
     text-align: center;
     background-color: white;
-    width: 40%;
     position: absolute;
-    top: -8%;
+    top: -10%;
     margin: auto;
-    left: 0;
-    right: 0;
   }
   img {
     width: 100%;
@@ -35,7 +34,7 @@
 
 .image-checkbox {
   &:checked {
-    & ~ label .card-polaroid {
+    & ~ label {
       border: 6px solid rgba(106, 134, 131, 1);
     }
   }
@@ -77,7 +76,6 @@
   }
 }
 
-
 .image-checkbox {
   &:checked {
     & ~ label .card-polaroid {
@@ -86,13 +84,12 @@
   }
 }
 
-
-.activities-card{
+.activities-card {
   border: 2px solid rgba(0, 0, 0, 0.4);
   padding: 12px;
   padding-bottom: 52px;
   padding-top: 29px;
-  .header{
+  .header {
     display: flex;
     width: 60%;
     background: white;
@@ -102,9 +99,9 @@
     top: -72px;
     margin: auto;
     justify-content: space-between;
-    h2{
+    h2 {
       text-align: center;
-      font-weight: bold
+      font-weight: bold;
     }
   }
 }
@@ -113,7 +110,7 @@
   overflow: hidden;
   height: 120px;
   background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   border-radius: 7px;
@@ -134,7 +131,7 @@
 .card-product p {
   font-size: 12px;
   line-height: 1.4;
-  opacity: .7;
+  opacity: 0.7;
   margin-bottom: 0;
   margin-top: 8px;
 }
@@ -142,4 +139,3 @@
 .card-product .card-product-infos {
   padding: 16px;
 }
-

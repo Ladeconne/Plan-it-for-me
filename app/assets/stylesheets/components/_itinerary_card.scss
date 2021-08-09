@@ -1,0 +1,30 @@
+.card-itinerary {
+  width: 100%;
+  position: relative;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  padding: 12px;
+  padding-bottom: 52px;
+  padding-top: 29px;
+
+  h2 {
+    font-weight: bolder;
+    font-size: 29px;
+    line-height: 38px;
+    text-align: center;
+    background-color: white;
+    position: absolute;
+    top: -5%;
+    left: 23%;
+    margin: auto;
+  }
+  img {
+    width: 100%;
+    border-radius: 1px;
+    max-height: 220px;
+    object-fit: cover;
+  }
+
+  .info-card {
+    margin: 7px auto;
+  }
+}

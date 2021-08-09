@@ -11,8 +11,8 @@ class ActivitiesController < ApplicationController
     }
     # looping by category
 
-    @activities = open_trip_map(activity_lists)
-    # @activities = { "Religion" => Activity.all.sample(3), "Museum" => Activity.all.sample(4) }
+    # @activities = open_trip_map(activity_lists)
+    @activities = { "Religion" => Activity.all.sample(3), "Museum" => Activity.all.sample(4) }
   end
 
   def show

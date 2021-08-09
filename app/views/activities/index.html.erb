@@ -48,14 +48,12 @@
             <div class="col-12">
               <h2><%=category.upcase%></h2>
               <div class="row horizontal-scroll">
-              <% 2.times do  %>
                 <% activities.each do |activity| %>
                   <div class="col-lg-3 col-md-6 interest-col">
-                    <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name%>" value="<%=activity.name %>">
-                    <label for="<%=activity.name%>"><%= render 'shared/activity_card',  name: activity.name.truncate_words(4) %></label>
+                    <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name.truncate_words(4)%>" value="<%=activity.name %>">
+                    <label for="<%=activity.name.truncate_words(4)%>"><%= render 'shared/activity_card',  name: activity.name %></label>
                   </div>
                 <% end %>
-              <% end %>
               </div>
             </div>
           <% end %>
@@ -64,5 +62,3 @@
     </div>
   </div>
 </div>
-  
-  <!---make row, on row css overflow-x: scroll + width: XXpx; --->

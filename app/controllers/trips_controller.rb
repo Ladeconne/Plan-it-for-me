@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :destroy]
+  before_action :set_trip, only: %i[show destroy]
   def index
     @trips = Trip.where(user: current_user)
   end
@@ -25,10 +25,8 @@ class TripsController < ApplicationController
     @end_date = session[:end_date]
     @city = session[:city]
     @trip = Trip.new(city: @city, start_date: @start_date, end_date: @end_date)
-    @activity_ids = params[:search].keys #[2,4,6,8]
-    if  user_signed_in?
-      @trip.user = current_user
-    end
+    @activity_ids = params[:search].keys # [2,4,6,8]
+    @trip.user = current_user if user_signed_in?
     @trip.save
     session[:current_trip] = @trip.id
     Activity.where(id: @activity_ids).update_all(trip_id: @trip.id)
@@ -40,11 +38,17 @@ class TripsController < ApplicationController
     else
       create
     end
+    @trip.days.destroy_all
+    if params[:search].present?
+      @trip.activities.update_all(trip_id: nil)
+      params[:search].each_key do |id|
+        Activity.find(id).update_columns(trip_id: @trip.id)
+      end
+    end
     @next = 0
     @prev = nil
     calculate_day_plan
   end
-
 
   def next
     @trip = Trip.find(session[:current_trip])
@@ -81,11 +85,10 @@ class TripsController < ApplicationController
     # render 'your_trip'
   end
 
-
   private
 
   def calculate_day_plan
-        # current_user = User.find_by_id(session[:current_user_id])
+    # current_user = User.find_by_id(session[:current_user_id])
     # activities that the user choosed
     @markers = @trip.activities.map do |activity|
       {
@@ -104,7 +107,7 @@ class TripsController < ApplicationController
     @city = @trip.city
 
     days = days.map do |date|
-      Day.create!(trip: @trip, date: date)
+      Day.find_or_create_by(trip: @trip, date: date)
     end
 
     while cloned.length.positive?
@@ -112,7 +115,7 @@ class TripsController < ApplicationController
       rest_activities = cloned[1..-1]
       cloned.delete_at(0)
 
-      if !cloned.empty?
+      unless cloned.empty?
         with_distance = rest_activities.map do |act|
           {
             activity: act,
@@ -139,10 +142,7 @@ class TripsController < ApplicationController
       @result << day_activities
     end
     # city the user choose
-    if !user_signed_in?
-      session[:trip_id] = @trip.id
-    end
-
+    session[:trip_id] = @trip.id unless user_signed_in?
   end
 
   def set_trip

@@ -34,7 +34,7 @@
 
 .image-checkbox {
   &:checked {
-    & ~ label .card-polaroid {
+    & ~ label {
       border: 6px solid rgba(106, 134, 131, 1);
     }
   }

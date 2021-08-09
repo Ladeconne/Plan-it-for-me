@@ -11,8 +11,17 @@ class ActivitiesController < ApplicationController
     }
     # looping by category
 
-    # @activities = open_trip_map(activity_lists)
-    @activities = { "Religion" => Activity.all.sample(3), "Museum" => Activity.all.sample(4) }
+    @activities = open_trip_map(activity_lists)
+    # @activities = { "Religion" => Activity.all.sample(3), "Museum" => Activity.all.sample(4) }
+  end
+
+  def show
+    @activity = Activity.find(params[:id])
+    respond_to do |format|
+      format.json {
+        render json: { modal: render_to_string("_modal", formats: [:html], layout: false, locals: {activity: @activity } ) }
+      }
+    end
   end
 
   private

@@ -1,0 +1,56 @@
+.activity-popup{
+  position: fixed;
+  width: 100%;
+  background: #00000082;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  .popup-card{
+    background: white;
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    height: 50%;
+    padding: 1rem;
+    .row{
+      margin: 0px;
+      flex: 1;
+      max-height: 70%;
+    }
+    .popup-desc{
+      overflow-y: scroll;
+      padding: 0px;
+      padding-right: 1rem;
+      text-align: justify;
+      max-height: -webkit-fill-available;
+    }
+    .popup-image{
+      width: 100%;
+      object-fit: cover;
+      padding: 0px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img{
+        max-height: 150px;
+      }
+    }
+    .popup_link {
+      text-decoration: underline;
+      cursor: pointer;
+      padding-right: 1rem;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+  h2{
+    margin: 2%;
+  }
+  p{
+    margin: 2%;
+  }
+}

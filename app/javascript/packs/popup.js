@@ -11,18 +11,17 @@ const closeModal = () => {
   })
 }
 const createPopUp = (e) => {
-    console.log(e.currentTarget);
-    fetch(`/activities/${e.currentTarget.id}`, {
-      headers: { "Accept": "application/json" }
-    })
-    .then(response => response.json())
-    .then(data => {
-      document.body.insertAdjacentHTML('afterbegin', data.modal)
-      setTimeout(()=> {
-        closeModal()
-      }, 100)
-    })
-  }
+  fetch(`/activities/${e.currentTarget.dataset.id}`, {
+    headers: { "Accept": "application/json" }
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.body.insertAdjacentHTML('afterbegin', data.modal)
+    setTimeout(()=> {
+      closeModal()
+    }, 100)
+  })
+}
 const popUpWindow = () =>  {
   const popUps = document.querySelectorAll('.view-activity')
   popUps.forEach(popUp => {

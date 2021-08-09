@@ -10,24 +10,41 @@
   z-index: 5;
   .popup-card{
     background: white;
+    display: flex;
+    flex-direction: column;
     width: 55%;
     height: 50%;
-  }
-  .popup-image{
-    width: 35%;
-    height: 35%;
-    object-fit: cover;
+    padding: 1rem;
+    .row{
+      margin: 0px;
+      flex: 1;
+    }
+    .popup-desc{
+      overflow-y: scroll;
+      padding: 0px;
+    }
+    .popup-image{
+      width: 100%;
+      object-fit: cover;
+      padding: 0px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .popup_link {
+      text-decoration: underline;
+      cursor: pointer;
+      padding-right: 1rem;
+      &:hover{
+        text-decoration: none;
+      }
+    }
   }
   h2{
     margin: 2%;
   }
   p{
     margin: 2%;
-  }
-}
-.popup_link {
-  text-decoration: underline;
-  &:hover{
-    text-decoration: none;
   }
 }

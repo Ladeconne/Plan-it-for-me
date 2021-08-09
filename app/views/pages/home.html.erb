@@ -87,3 +87,12 @@
   </div>
   <%= image_tag 'banner-content-1.png', class: "banner-image mt-5" %>
 </div>
+
+
+<script>
+if(!!window.performance && window.performance.navigation.type === 2)
+{
+    console.log('Reloading');
+    window.location.reload();
+}
+</script>

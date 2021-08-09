@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   before_action :clear_session, only: [ :home ]
 
   def home
+    session[:current_trip] = nil
   end
 
   def components

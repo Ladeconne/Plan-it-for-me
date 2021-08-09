@@ -5,7 +5,7 @@ class Day < ApplicationRecord
   validates :date, presence: true
 
   # validate :date_future?, on: :create
-  has_many :activities, dependent: :destroy
+  has_many :activities, dependent: :nullify
 
   validate :date_future?, on: :create
 
@@ -13,8 +13,8 @@ class Day < ApplicationRecord
 
   def date_future?
     return if seed
-    return if !date.present?
+    return unless date.present?
+
     errors.add(:date, "can't be in the past") if date < Date.today
   end
-
 end

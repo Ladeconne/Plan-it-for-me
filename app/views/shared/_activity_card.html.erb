@@ -1,5 +1,11 @@
-<div class="card-polaroid">
-  <p><%= name %></p>
+<div class="individual-activities-card">
   <%= image_tag "https://source.unsplash.com/400x300/?#{name}" %>
-  <%= yield %>
+  <div class="row overscroll justify-content-center align-items-center">
+    <div class="col-9 activity-name">
+      <p><%= name %></p>
+    </div>
+    <div class="col-3">
+      <i class="fas fa-eye eyecon"></i>
+    </div>
+  </div>
 </div>

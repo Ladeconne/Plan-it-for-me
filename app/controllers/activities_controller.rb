@@ -11,8 +11,8 @@ class ActivitiesController < ApplicationController
     }
     # looping by category
 
-    @activities = open_trip_map(activity_lists)
-    # @activities = { "Religion" => Activity.all.sample(3), "Museum" => Activity.all.sample(4) }
+    # @activities = open_trip_map(activity_lists)
+    @activities = { "Religion" => Activity.all.sample(3), "Museum" => Activity.all.sample(4) }
   end
 
   private
@@ -80,15 +80,30 @@ class ActivitiesController < ApplicationController
     return new_activity_lists
   end
 
-  def create_activity(activityOTM)
+  def create_activity(activity_otm)
+    return if activity_otm["name"].nil?
     activity = Activity.new
-    activity.name = activityOTM["name"]
-    activity.link = activityOTM["url"].split(";").first if activityOTM["url"]
-    activity.picture_url = activityOTM["preview"]["source"] if activityOTM["preview"]
-    activity.description = activityOTM["wikipedia_extracts"]["text"] if activityOTM["wikipedia_extracts"]
-    activity.address = "#{activityOTM['address']['pedestrian']}, #{activityOTM['address']['city']}, #{activityOTM['address']['country']}}"
-    activity.latitude = activityOTM["point"]["lat"]
-    activity.longitude = activityOTM["point"]["lon"]
+    activity.name = activity_otm["name"]
+    if activity_otm["url"]
+      activity.link = activity_otm["url"].split(";").first
+    else
+      query = activity_otm["name"].gsub(" ", "-")
+      activity.link = "https://www.google.fr/search?q=#{query}"
+    end
+    if activity_otm["preview"]
+      activity.picture_url = activity_otm["preview"]["source"]
+    else
+      query = activity_otm["name"].gsub(" ","-")
+      activity.picture_url = "https://source.unsplash.com/400x300/?#{query}"
+    end
+    if activity_otm["wikipedia_extracts"]
+      activity.description = activity_otm["wikipedia_extracts"]["text"]
+    else
+      activity.description = "Oups! Sorry we haven't find a specific description for this page, follow the link to have some on google :)"
+    end
+    activity.address = "#{activity_otm['address']['pedestrian']}, #{activity_otm['address']['city']}, #{activity_otm['address']['country']}}"
+    activity.latitude = activity_otm["point"]["lat"]
+    activity.longitude = activity_otm["point"]["lon"]
     return activity
   end
 end

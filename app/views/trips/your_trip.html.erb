@@ -55,7 +55,11 @@
               <% t[:activities].each do |act| %>
 
                 <div class="card-product rounded-3 my-2">
-                  <%= image_tag act.picture_url %>
+                    <% if act.picture_url.nil? %>
+                      <%= image_tag "https://source.unsplash.com/400x300/?#{name}" %>
+                    <% else %>
+                      <%= image_tag act.picture_url %>
+                    <% end %>
                   <div class="card-product-infos">
                     <h2><%= act.name %></h2>
                   </div>

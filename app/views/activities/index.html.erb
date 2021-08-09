@@ -35,7 +35,7 @@
             <% activities.each do |activity| %>
               <div class="col-lg-2 col-md-6 interest-col">
                 <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name%>" value="<%=activity.name %>">
-                <label for="<%=activity.name%>"><%= render 'shared/activity_card',  name: activity.name %></label>
+                <label for="<%=activity.name%>"><%= render 'shared/activity_card',  name: activity.name, picture_url: activity.picture_url %></label>
               </div>
             <% end %>
           </div>

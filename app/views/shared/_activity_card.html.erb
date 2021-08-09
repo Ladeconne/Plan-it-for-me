@@ -1,5 +1,9 @@
 <div class="card-polaroid">
   <p><%= name %></p>
-  <%= image_tag "https://source.unsplash.com/400x300/?#{name}" %>
+  <% if picture_url.nil? %>
+    <%= image_tag "https://source.unsplash.com/400x300/?#{name}" %>
+  <% else %>
+    <%= image_tag picture_url %>
+  <% end %>
   <%= yield %>
 </div>

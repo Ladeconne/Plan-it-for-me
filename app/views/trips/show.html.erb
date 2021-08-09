@@ -1,25 +1,97 @@
-<h1><%= @trip.city %></h1>
-<div>
-  <% @trip.days.each do |day| %>
-   <div>
-      <%= day.date %>
-      <% day.activities.each do |activity| %>
-        <%= activity.name %>
-      <% end %>
-   </div>
-  <% end %>
-  <%= link_to "Delete",
-                      trip_path(@trip),
-                      class: "btn btn-warning",
-                      method: :delete,
-                      data: { confirm: "Are you sure?" } %>
-</div>
+<div id="your-trip">
+
+  <div class="container my-5">
+      <div class="row">
 
 
 
-  <div id="map"
-     style="width: 100%; height: 600px;"
-     data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+
+        <div class="col-md-6 col-sm-12 ">
+          <div class="activities-card">
+
+          <div class="header">
+            <%# if params[:day].to_i == 0%>
+              <%#= link_to your_trip_path do  %>
+            <%# end %>
+            <% if action_name != 'show' %>
+              <% if @prev_day %>
+                <%= link_to day_trip_path(@prev_day) do  %>
+                  <i class="chevron fas fa-chevron-left"></i>
+                <% end %>
+              <% else %>
+                <%= link_to trip_path(@trip) do  %>
+                  <i class="chevron fas fa-chevron-left"></i>
+                <% end %>
+
+              <% end %>
+            <% else %>
+              <%= link_to "", "#" %>
+            <% end %>
+            <h2><%= @trip.city.downcase.capitalize %><br/><%= @day ? @day.date : 'All dates'  %></h2>
+            <% if @next_day %>
+              <%= link_to day_trip_path(@next_day) do  %>
+                <i class="chevron fas fa-chevron-right"></i>
+              <% end %>
+            <% else %>
+              <%= link_to "", "#" %>
+            <% end %>
+          </div>
+
+
+          <% if action_name == 'show' %>
+            <% @days.each do |day| %>
+              <ul>
+                <li>
+                  <%= day.date %>
+                  <div>
+                  <% day.activities.each do |activity| %>
+                      <%= activity.name %>
+                  <% end %>
+                  </div>
+                </li>
+              </ul>
+            <% end %>
+          <% else %>
+            <% @days.each do |day| %>
+              <% day.activities.each do |activity| %>
+                  <div class="card-product rounded-3 my-2">
+                  <%= image_tag activity.picture_url %>
+                  <div class="card-product-infos">
+                    <h2><%= activity.name %></h2>
+                  </div>
+                 </div>
+
+              <% end %>
+            <% end %>
+          <% end %>
+
+
+
+
+
+
+      </div>
+             <%= link_to "Delete",
+                        trip_path(@trip),
+                        class: "btn btn-warning",
+                        method: :delete,
+                        data: { confirm: "Are you sure?" } %>
+  </div>
+
+      <div class="col-md-6 col-sm-12 ">
+        <div class="card-polaroid">
+         <h2><%= @trip.city.downcase.capitalize %></h2>
+           <div id="map"
+             style="width: 100%; height: 600px;"
+             data-markers="<%= @markers.to_json %>"
+             data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+           </div>
+        </div>
+      </div>
+
+    </div>
 
   </div>
+
+  </div>
+</div>

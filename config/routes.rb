@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   resources :trips
+  get '/trips/days/:id', to: 'trips#day', as: :day_trip
   get '/your_trip', to: 'trips#your_trip', as: :your_trip
   get '/your_trip/next', to: 'trips#next', as: :next_day
   get '/your_trip/prev', to: 'trips#prev', as: :prev_day

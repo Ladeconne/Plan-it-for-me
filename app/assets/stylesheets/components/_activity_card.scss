@@ -1,0 +1,46 @@
+.individual-activities-card {
+  width: 210px;
+  height: 216px;
+  position: relative;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  padding: 12px;
+
+  p {
+    font-size: 11px;
+    text-align: left;
+    padding-top: 16px;
+  }
+
+  &:hover {
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  img {
+    width: 100%;
+    border-radius: 1px;
+    max-height: 220px;
+    object-fit: cover;
+  }
+
+  .info-card {
+    margin: 7px auto;
+  }
+
+  .activity-name {
+    flex: 0 0 100%;
+  }
+
+  .eyecon {
+    font-size: 20px;
+  }
+}
+
+.selection {
+  width: 95%;
+  margin: auto;
+}
+
+.horizontal-scroll {
+  overflow-x: scroll;
+  flex-wrap: nowrap;
+}

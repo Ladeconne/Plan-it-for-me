@@ -1,7 +1,26 @@
-#your-trip{
-  .card-polaroid{
-    h2{
-      top: -4%
+#your-trip {
+  .card-polaroid {
+    h2 {
+      top: -4%;
     }
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  .date {
+    font-weight: bolder;
+    font-size: 21px;
+    margin: 0;
+    margin-top: 8px;
+    border-top: 5px dotted #6a8683;
+    width: 46%;
+  }
+
+  .activity {
+    font-weight: lighter;
+    font-size: 18px;
+    margin: 0;
   }
 }

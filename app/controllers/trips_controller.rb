@@ -5,7 +5,9 @@ class TripsController < ApplicationController
   end
 
   def show
-    @activities = @trip.activities.geocoded
+    @days = @trip.days.order(:date).distinct
+    set_activities
+    @next_day = @trip.days.order(:date).first
     @markers = @activities.map do |activity|
       {
         lat: activity.latitude,
@@ -13,6 +15,23 @@ class TripsController < ApplicationController
         info_window: render_to_string(partial: "info_window", locals: { activity: activity })
       }
     end
+  end
+
+  def day
+    @day = Day.find(params[:id])
+    @trip = @day.trip
+    set_activities
+    @next_day = @trip.days.where('id > ?', @day.id).first
+    @prev_day = @trip.days.where('id < ?', @day.id).last
+    @markers = @activities.map do |activity|
+      {
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+      }
+    end
+    @days = [@day]
+    render 'show'
   end
 
   def destroy
@@ -54,7 +73,12 @@ class TripsController < ApplicationController
     @prev = @next ? @next - 1 : params[:day].to_i - 1
     @result = [@day]
     @date = @result[0][:day][:date]
-    render 'your_trip'
+    if params[:show].present?
+      set_activities
+      render 'show'
+    else
+      render 'your_trip'
+    end
   end
 
   def prev
@@ -65,20 +89,12 @@ class TripsController < ApplicationController
     @prev = @next ? @next - 1 : params[:day].to_i - 1
     @result = [@day]
     @date = @result[0][:day][:date]
-    render 'your_trip'
-
-    # params[:day]
-    # @trip = Trip.find(session[:current_trip])
-    # calculate_day_plan
-    # @day = @result[params[:day].to_i - 1]
-    # if params[:day] == '1'
-    #   @next = 1
-    # else
-    #   @result = [@day]
-    #   @next = @result[params[:day].to_i]
-    #   @date = @result[0][:day][:date]
-    # end
-    # render 'your_trip'
+    if params[:show].present?
+      set_activities
+      render 'show'
+    else
+      render 'your_trip'
+    end
   end
 
 
@@ -141,6 +157,18 @@ class TripsController < ApplicationController
     # city the user choose
     if !user_signed_in?
       session[:trip_id] = @trip.id
+    end
+
+  end
+
+  def set_activities
+    @activities = @trip.activities.geocoded
+    @markers = @activities.map do |activity|
+      {
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+      }
     end
 
   end

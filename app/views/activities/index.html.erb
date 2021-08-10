@@ -44,6 +44,7 @@
       <div class="card-itinerary mt-5">
         <h2>Your Itinerary</h2>
         <% @activities.each do |category, activities| %>
+          <% next if activities.empty?  %>
           <p><%= category %></p>
           <ol>
           <% activities.each do |activity| %>
@@ -57,13 +58,14 @@
       <%= simple_form_for :search, url: your_trip_path, method: 'get', html: { id: 'activity-form' } do |f| %>
         <div class="row justify-content-center">
           <% @activities.each do |category, activities|  %>
+            <% next if activities.empty?  %>
             <div class="col-12">
               <h2><%=category.upcase%></h2>
               <div class="row horizontal-scroll">
                 <% activities.each do |activity| %>
                   <div class="col-lg-3 col-md-6 interest-col d-flex flex-column">
                     <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name.truncate_words(4).downcase.gsub(' ', '_')%>" value="<%=activity.name %>">
-                    <label data-target="<%=activity.name.truncate_words(4).downcase.gsub(' ', '_') %>" data-fullname="<%= activity.name%>"><%= render 'shared/activity_card',  name: activity.name %></label>
+                    <label data-target="<%=activity.name.truncate_words(4).downcase.gsub(' ', '_') %>" data-category="<%=category%>" data-fullname="<%= activity.name%>"><%= render 'shared/activity_card',  name: activity.name %></label>
                     <i class="fas fa-eye eyecon view-activity" data-id="<%= activity.id %>"></i>
                   </div>
                 <% end %>

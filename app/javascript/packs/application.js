@@ -41,8 +41,8 @@ document.addEventListener("turbolinks:load", () => {
   initAutocomplete();
   validateDates();
   popUpWindow();
-  initLoader();
   selectAll();
-  activityCounter();
   categoryCounter();
+  activityCounter();
+  initLoader();
 });

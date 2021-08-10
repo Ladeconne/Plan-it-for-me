@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/your_trip', to: 'trips#your_trip', as: :your_trip
   get '/your_trip/next', to: 'trips#next', as: :next_day
   get '/your_trip/prev', to: 'trips#prev', as: :prev_day
-
+  get '/about', to: 'pages#about', as: :about
   resources :categories
   resources :activities
 

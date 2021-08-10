@@ -1,5 +1,5 @@
 .individual-activities-card {
-  width: 210px;
+  width: 100%;
   height: 216px;
   position: relative;
   border: 2px solid rgba(0, 0, 0, 0.4);
@@ -28,10 +28,6 @@
 
   .activity-name {
     flex: 0 0 100%;
-  }
-
-  .eyecon {
-    font-size: 20px;
   }
 }
 

@@ -6,7 +6,7 @@
         <h1 class="m-0">PLAN IT FOR ME</h1>
       </div>
     <% end %>
-    <%= link_to "About", "#", class: "nav-link" %>
+    <%= link_to "About", about_path, class: "nav-link" %>
     <%= link_to "New Trip", :root, class: "nav-link" %>
     <% if user_signed_in?  %>
       <%= link_to "Saved Trips", trips_path, class: "nav-link" %>

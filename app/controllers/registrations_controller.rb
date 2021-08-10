@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
       session.delete(:trip_id)
       trip_path(trip)
     else
-      stored_location_for(user)
+      stored_location_for(resource)
     end
   end
 end

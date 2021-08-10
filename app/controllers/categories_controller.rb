@@ -1,6 +1,11 @@
 class CategoriesController < ApplicationController
   def index
     session[:current_trip] = nil
+
+    # if params[:trip_id].present?
+    #    # session[:current_trip]
+    # end
+
     unless valid?
       render 'pages/home'
       return

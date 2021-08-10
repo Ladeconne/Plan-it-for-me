@@ -18,9 +18,23 @@ class TripsController < ApplicationController
   end
 
   def edit
+
+    @day = @trip.days.order(:date).distinct
   end
 
   def update
+    # connect the activity)id with the days[:date]
+
+    @days = @trip.days
+    @days.each do |day|
+      activity_ids = params[day.id.to_s][:activities] # array
+      activity_ids.each do |id|
+          activity = Activity.find(id)
+        activity.update(day_id: day.id)
+      end
+      # @trip.update(trip_params)
+    end
+    redirect_to trip_path(@trip)
   end
 
   def day
@@ -73,6 +87,7 @@ class TripsController < ApplicationController
     @next = 0
     @prev = nil
     calculate_day_plan
+    Activity.where(id: session[:activity_ids]).update_all(trip_id: @trip.id)
   end
 
   def next
@@ -160,6 +175,7 @@ class TripsController < ApplicationController
 
       day_activities[:activities].each do |act|
         act.update(day: day_activities[:day])
+        session[:activity_ids].delete(act.id)
       end
       @result << day_activities
     end
@@ -177,6 +193,10 @@ class TripsController < ApplicationController
       }
     end
 
+  end
+
+  def trip_params
+    params.require(:trip).require(:activity_ids).permit(:activity_ids)
   end
 
   def set_trip

@@ -1,4 +1,5 @@
 class ActivitiesController < ApplicationController
+  # before_activity :set_trip, only: %i[edit update]
   def index
     # Do not uncomment until production (call_amadeus is using our quota)
     places_list = AmadeusApiCall.new(session.dig(:city)).call
@@ -23,6 +24,18 @@ class ActivitiesController < ApplicationController
                                                          locals: { activity: @activity }) }
       end
     end
+  end
+
+  def assign_day
+    @activity = Activity.find(params[:id])
+    @activity.update(day_id: params[:day_id])
+    redirect_to @activity.trip
+  end
+
+  def remove_day
+    @activity = Activity.find(params[:id])
+    @activity.update(day_id: nil)
+    redirect_to @activity.trip
   end
 
   private
@@ -61,9 +74,11 @@ class ActivitiesController < ApplicationController
         id = response['features'].first['properties']['xid']
         place_url = "http://api.opentripmap.com/0.1/en/places/xid/#{id}?apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
         response = JSON.parse(RestClient.get(place_url))
+
         unless create_activity(response).nil?
           activity = create_activity(response)
           activity.save
+          session[:activity_ids] = [*session[:activity_ids], activity.id]
           category_instance = Category.find_by_name(category)
           ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
           new_activity_lists[category] << activity # activity object

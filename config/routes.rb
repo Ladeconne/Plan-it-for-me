@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   get '/your_trip/prev', to: 'trips#prev', as: :prev_day
   get '/about', to: 'pages#about', as: :about
   resources :categories
-  resources :activities
+  resources :activities do
+    member do
+      patch :assign_day
+      patch :remove_day
+    end
+  end
 
   get '/components', to: 'pages#components', as: :components
 

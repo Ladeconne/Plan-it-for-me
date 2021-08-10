@@ -1,43 +1,121 @@
 <%= render 'shared/loading' %>
 
 <div id="interests">
-  <div class="container">
-    <div class="mb-1 mx-auto">
-      <%= image_tag "cat1.svg", class: "progress-icon progress-a" %>
+  <div class="container mb-5">
+    <div class="row mb-1 mx-auto align-items-center">
+      <div class="col-3">
+      </div>
+      <div class="col-6">
+        <%= image_tag "cat1.svg", class: "progress-icon progress-a" %>
+      </div>
+      <div class="col-3">
+        <p class="prompt next invisible">Next</p>
+      </div>
     </div>
+
     <div class="row mb-4 align-items-center">
-      <div class="col-1">
+      <div class="col-1" style="height: 72px">
       </div>
       <div class="col-10">
         <div class="progress_bar">
-
           <div class="progress">
             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       </div>
-      <div class="col-1">
-        <button class="btn" type="submit" form='category-form'><i class="chevron fas fa-chevron-right" id="load-button"></i></button>
+      <div class="col-1 right-arrow" style="height: 72px">
       </div>
     </div>
     <h1>SELECT YOUR INTERESTS:</h1>
-
-  <%= simple_form_for :search, url: activities_path, method: 'get', html: { id: 'category-form' } do |f| %>
-    <div class="row justify-content-center">
-      <% ['Nature', 'Religion', 'Museum', 'Art', 'Music', 'History', 'Sport', 'Shopping'].each do |category|  %>
-        <div class="col-lg-3 col-md-6 interest-col">
-          <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="<%=category%>" value="<%=category%>">
-          <label for="<%=category%>"><%= render 'shared/polaroid_card',  name: category %></label>
-        </div>
-      <% end %>
+    <div class="instructions">
+      <p>Select at least <em>one</em> category to continue</p>
     </div>
-  <% end %>
 
-    <%# <%= f.input :category, label: "Categories", collection: ["Nature","Religion", "Museum", "Art", "Music", "History", "Sport", "Science"], wrapper_html: { class: 'form-group' }, as: :check_boxes, input_html: {name: "search[categories][]", multiple: true} %>
-    <!-- ADD CHECKBOX FORM -->
+    <%= simple_form_for :search, url: activities_path, method: 'get', html: { id: 'category-form' } do |f| %>
+      <div class="row justify-content-center">
 
+          <div class="col-lg-3 col-md-6 interest-col">
+            <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="nature" value="nature">
+            <label data-target="nature">
+              <div class="card-polaroid">
+                <h2>Nature</h2>
+                <%= image_tag "nature.jpg" %>
+              </div>
+            </label>
+          </div>
 
+          <div class="col-lg-3 col-md-6 interest-col">
+            <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="religion" value="religion">
+            <label data-target="religion">
+              <div class="card-polaroid">
+                <h2>Religion</h2>
+                <%= image_tag "religion.jpg" %>
+              </div>
+            </label>
+          </div>
 
-    <!-- This button should be the "next" button -->
-    <%#= f.submit class: "btn btn-success"%>
+          <div class="col-lg-3 col-md-6 interest-col">
+            <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="museum" value="museum">
+            <label data-target="museum">
+              <div class="card-polaroid">
+                <h2>Museum</h2>
+                <%= image_tag "museum.jpg" %>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-lg-3 col-md-6 interest-col">
+            <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="art" value="art">
+            <label data-target="art">
+              <div class="card-polaroid">
+                <h2>Art</h2>
+                <%= image_tag "art.jpg" %>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-lg-3 col-md-6 interest-col">
+            <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="music" value="music">
+            <label data-target="music">
+              <div class="card-polaroid">
+                <h2>Music</h2>
+                <%= image_tag "music.jpg" %>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-lg-3 col-md-6 interest-col">
+            <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="history" value="history">
+            <label data-target="history">
+              <div class="card-polaroid">
+                <h2>History</h2>
+                <%= image_tag "history.jpg" %>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-lg-3 col-md-6 interest-col">
+            <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="sport" value="sport">
+            <label data-target="sport">
+              <div class="card-polaroid">
+                <h2>Sport</h2>
+                <%= image_tag "sport.jpg" %>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-lg-3 col-md-6 interest-col">
+            <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="shopping" value="shopping">
+            <label data-target="shopping">
+              <div class="card-polaroid">
+                <h2>Shopping</h2>
+                <%= image_tag "shopping.jpg" %>
+              </div>
+            </label>
+          </div>
+      </div>
+      <h1>OR:</h1>
+      <div id="select-all-categories" type="button" class="btn btn-flat big-button"><p><span>Select</span> All Categories</p></div>
+    <% end %>
+  </div>
 </div>

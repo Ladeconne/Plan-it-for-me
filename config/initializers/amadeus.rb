@@ -1,0 +1,2 @@
+AMADEUS_CLIENT_ID = ENV["AMADEUS_KEY_#{Rails.env.upcase}"]
+AMADEUS_CLIENT_SECRET = ENV["AMADEUS_SECRET_#{Rails.env.upcase}"]

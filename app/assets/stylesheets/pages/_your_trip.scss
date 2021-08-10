@@ -1,9 +1,4 @@
 #your-trip {
-  .card-polaroid {
-    h2 {
-      top: -4%;
-    }
-  }
 
   ul {
     list-style-type: none;
@@ -16,6 +11,9 @@
     margin-top: 8px;
     border-top: 5px dotted #6a8683;
     width: 46%;
+     p {
+      width: 237px;
+    }
   }
 
   .activity {

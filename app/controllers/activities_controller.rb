@@ -1,4 +1,5 @@
 class ActivitiesController < ApplicationController
+  # before_activity :set_trip, only: %i[edit update]
   def index
     # Do not uncomment until production (call_amadeus is using our quota)
     # activity_lists = call_amadeus
@@ -24,7 +25,24 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def assign_day
+    @activity = Activity.find(params[:id])
+    @activity.update(day_id: params[:day_id])
+    redirect_to @activity.trip
+  end
+
+  def remove_day
+    @activity = Activity.find(params[:id])
+    @activity.update(day_id: nil)
+    redirect_to @activity.trip
+  end
+
   private
+
+  # def set_activity
+  #   @id = params[:id]
+  #   @activity = Activity.find(@id)
+  # end
 
   def call_amadeus
     # test token
@@ -81,6 +99,7 @@ class ActivitiesController < ApplicationController
         response = JSON.parse(RestClient.get(place_url))
         activity = create_activity(response)
         activity.save
+        session[:activity_ids] = [*session[:activity_ids], activity.id]
         category_instance = Category.find_by_name(category)
         ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
         new_activity_lists[category] << activity # activity object

@@ -42,10 +42,27 @@
             <% @days.each do |day| %>
               <ul>
                 <li>
-                  <p class="date"><%= day.date.strftime("%A, %b %d") %></p>
+                  <div class="date d-flex">
+                    <div>
+                      <p class=""><%= day.date.strftime("%A, %b %d") %></p>
+                    </div>
+                    <div>
+                      <%= render 'day_edit_modal', day: day %>
+                    </div>
+
+                  </div>
                   <div>
                   <% day.activities.each do |activity| %>
-                    <p class="activity"><%= activity.name %></p>
+                  <div class="d-flex">
+                    <div>
+                      <%= link_to remove_day_activity_path(activity), method: :patch do %>
+                      <i class="fas fa-minus"></i>
+                      <% end %>
+                    </div>
+                    <div>
+                      <p class="activity ml-2"><%= activity.name %></p>
+                    </div>
+                  </div>
                   <% end %>
                   </div>
                 </li>
@@ -71,11 +88,12 @@
 
 
       </div>
-             <%= link_to "Delete",
-                        trip_path(@trip),
-                        class: "btn btn-warning",
-                        method: :delete,
-                        data: { confirm: "Are you sure?" } %>
+        <%= link_to "Delete",
+          trip_path(@trip),
+          class: "btn btn-danger",
+          method: :delete,
+          data: { confirm: "Are you sure?" } %>
+        <%#= link_to "Change Activity", categories_path({city: @trip.city, start_date: @trip.start_date, end_date: @trip.end_date}) %>
   </div>
 
       <div class="col-md-6 col-sm-12 ">

@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: %i[show destroy]
+  before_action :set_trip, only: %i[show destroy edit update]
   def index
     @trips = Trip.where(user: current_user)
   end
@@ -15,6 +15,12 @@ class TripsController < ApplicationController
         info_window: render_to_string(partial: "info_window", locals: { activity: activity })
       }
     end
+  end
+
+  def edit
+  end
+
+  def update
   end
 
   def day

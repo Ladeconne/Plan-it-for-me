@@ -42,10 +42,10 @@
             <% @days.each do |day| %>
               <ul>
                 <li>
-                  <%= day.date %>
+                  <p class="date"><%= day.date.strftime("%A, %b %d") %></p>
                   <div>
                   <% day.activities.each do |activity| %>
-                      <%= activity.name %>
+                    <p class="activity"><%= activity.name %></p>
                   <% end %>
                   </div>
                 </li>

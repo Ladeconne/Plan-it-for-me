@@ -97,7 +97,11 @@ class TripsController < ApplicationController
     @next = @result[params[:day].to_i] ? params[:day].to_i + 1 : nil
     @prev = @next ? @next - 1 : params[:day].to_i - 1
     @result = [@day]
-    @date = @result[0][:day][:date]
+    if @result[0] && @result[0][:day]
+      @date = @result[0][:day][:date]
+    else
+      @date
+    end
     if params[:show].present?
       set_activities
       render 'show'
@@ -113,7 +117,11 @@ class TripsController < ApplicationController
     @next = @result[params[:day].to_i] ? params[:day].to_i + 1 : nil
     @prev = @next ? @next - 1 : params[:day].to_i - 1
     @result = [@day]
-    @date = @result[0][:day][:date]
+    if @result[0] && @result[0][:day]
+      @date = @result[0][:day][:date]
+    else
+      @date
+    end
     if params[:show].present?
       set_activities
       render 'show'
@@ -179,6 +187,7 @@ class TripsController < ApplicationController
       end
       @result << day_activities
     end
+      @result = @result.reject {|r| !r[:day]}
     # city the user choose
     session[:trip_id] = @trip.id unless user_signed_in?
   end

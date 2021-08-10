@@ -54,6 +54,7 @@
             <% else %>
               <ul>
                 <% @result.each do |t| %>
+                 <% next if !t[:day] %>
                   <li>
                     <p class="date"><%= t[:day].date.strftime("%A, %b %d") %></p>
                     <div>

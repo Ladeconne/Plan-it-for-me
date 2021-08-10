@@ -1,3 +1,4 @@
+import { initLoader } from "./init_loader";
 const counter = document.querySelector("#counter");
 const container = document.querySelector(".instructions");
 const nextText = document.querySelector(".prompt.next");
@@ -14,6 +15,7 @@ const rightArrow = () =>
 const injectArrow = () => {
   nextText.classList.remove("d-none");
   arrowBox.innerHTML = rightArrow();
+  setTimeout(initLoader, 200);
 };
 const removeArrow = () => {
   if (nextText.classList.contains("d-none")) return;

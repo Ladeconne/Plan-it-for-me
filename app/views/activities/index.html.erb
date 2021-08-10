@@ -44,6 +44,7 @@
       <div class="card-itinerary mt-5">
         <h2>Your Itinerary</h2>
         <% @activities.each do |category, activities| %>
+          <% next if activities.empty?  %>
           <p><%= category %></p>
           <ol>
           <% activities.each do |activity| %>
@@ -57,6 +58,7 @@
       <%= simple_form_for :search, url: your_trip_path, method: 'get', html: { id: 'activity-form' } do |f| %>
         <div class="row justify-content-center">
           <% @activities.each do |category, activities|  %>
+            <% next if activities.empty?  %>
             <div class="col-12">
               <h2><%=category.upcase%></h2>
               <div class="row horizontal-scroll">

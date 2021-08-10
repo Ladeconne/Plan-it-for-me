@@ -1,3 +1,4 @@
+import { initLoader } from "./init_loader";
 const nextText = document.querySelector(".prompt.next");
 const arrowBox = document.querySelector(".right-arrow");
 
@@ -10,6 +11,7 @@ const rightArrow = () =>
 const injectArrow = () => {
   nextText.classList.remove("invisible");
   arrowBox.innerHTML = rightArrow();
+  setTimeout(initLoader, 200);
 };
 const removeArrow = () => {
   if (nextText.classList.contains("invisible")) return;

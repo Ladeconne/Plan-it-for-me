@@ -43,19 +43,6 @@ class ActivitiesController < ApplicationController
         end
       end
     end
-    #   category_activities = []
-    #   activities.each do |activity|
-    #     activity["tags"].each do |tag|
-    #       if Tag.find_by_word(tag) && Tag.find_by_word(tag).category.name == category
-    #         category_activities << activity
-    #         break
-    #       end
-    #       break if category_activities.size == 5
-    #     end
-    #     break if category_activities.size == 5
-    #   end
-    #   places_list[category] = category_activities
-    # end
     return places_list
   end
 
@@ -67,8 +54,7 @@ class ActivitiesController < ApplicationController
       activity_lists[category].each do |activity|
         lat = activity["geoCode"]["latitude"]
         lon = activity["geoCode"]["longitude"]
-        radius = 10000 # 10000 metre around the coordinates given by Amadeus
-        time = Time.now
+        radius = 10_000 # 10000 metre around the coordinates given by Amadeus
         url = "https://api.opentripmap.com/0.1/en/places/radius?radius=#{radius}&lon=#{lon}&lat=#{lat}&apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
         response = JSON.parse(RestClient.get(url))
         id = response['features'].first['properties']['xid']

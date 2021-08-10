@@ -29,10 +29,9 @@ class ActivitiesController < ApplicationController
 
   def filter_by_category(activities)
     # Get the categories chosen by the user
-    categories = params[:search][:categories][1..-1]
+    categories = params[:search][:categories]
     # result
     places_list = {}
-    category_activities = []
     places_list = categories.map { |x| [x, []]}.to_h
     tags = Tag.includes(:category).where(categories: { name: categories })
     activities.each do |activity|
@@ -44,7 +43,6 @@ class ActivitiesController < ApplicationController
         end
       end
     end
-
     #   category_activities = []
     #   activities.each do |activity|
     #     activity["tags"].each do |tag|
@@ -76,23 +74,21 @@ class ActivitiesController < ApplicationController
         id = response['features'].first['properties']['xid']
         place_url = "http://api.opentripmap.com/0.1/en/places/xid/#{id}?apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
         response = JSON.parse(RestClient.get(place_url))
-        activity = create_activity(response)
-        activity.save
-        category_instance = Category.find_by_name(category)
-        ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
-        new_activity_lists[category] << activity # activity object
-        p "-----------------------------------------------------------"
-        p "-----------------------------------------------------------"
-        p Time.now - time
-        p "-----------------------------------------------------------"
-        p "-----------------------------------------------------------"
+        unless create_activity(response).nil?
+          activity = create_activity(response)
+          activity.save
+          category_instance = Category.find_by_name(category)
+          ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
+          new_activity_lists[category] << activity # activity object
+        end
       end
     end
     return new_activity_lists
   end
 
   def create_activity(activity_otm)
-    return if activity_otm["name"].nil?
+    return if activity_otm["name"].empty?
+
     activity = Activity.new
     activity.name = activity_otm["name"]
     if activity_otm["url"]

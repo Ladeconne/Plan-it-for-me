@@ -50,6 +50,9 @@
   &.next {
     margin-left: 84%;
   }
+  &.invisible {
+    opacity: 0;
+  }
   &.prev {
     margin-left: -4%;
   }

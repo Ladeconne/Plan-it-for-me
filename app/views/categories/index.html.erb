@@ -9,12 +9,12 @@
         <%= image_tag "cat1.svg", class: "progress-icon progress-a" %>
       </div>
       <div class="col-3">
-        <p class="prompt next">Next</p>
+        <p class="prompt next invisible">Next</p>
       </div>
     </div>
 
     <div class="row mb-4 align-items-center">
-      <div class="col-1">
+      <div class="col-1" style="height: 72px">
       </div>
       <div class="col-10">
         <div class="progress_bar">
@@ -23,18 +23,20 @@
           </div>
         </div>
       </div>
-      <div class="col-1">
-        <button class="btn" type="submit" form='category-form'><i class="chevron fas fa-chevron-right" id="load-button"></i></button>
+      <div class="col-1 right-arrow" style="height: 72px">
       </div>
     </div>
     <h1>SELECT YOUR INTERESTS:</h1>
+    <div class="instructions">
+      <p>Select at least <em>one</em> category to continue</p>
+    </div>
 
     <%= simple_form_for :search, url: activities_path, method: 'get', html: { id: 'category-form' } do |f| %>
       <div class="row justify-content-center">
 
           <div class="col-lg-3 col-md-6 interest-col">
             <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="nature" value="nature">
-            <label for="nature">
+            <label data-target="nature">
               <div class="card-polaroid">
                 <h2>Nature</h2>
                 <%= image_tag "nature.jpg" %>
@@ -44,7 +46,7 @@
 
           <div class="col-lg-3 col-md-6 interest-col">
             <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="religion" value="religion">
-            <label for="religion">
+            <label data-target="religion">
               <div class="card-polaroid">
                 <h2>Religion</h2>
                 <%= image_tag "religion.jpg" %>
@@ -54,7 +56,7 @@
 
           <div class="col-lg-3 col-md-6 interest-col">
             <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="museum" value="museum">
-            <label for="museum">
+            <label data-target="museum">
               <div class="card-polaroid">
                 <h2>Museum</h2>
                 <%= image_tag "museum.jpg" %>
@@ -64,7 +66,7 @@
 
           <div class="col-lg-3 col-md-6 interest-col">
             <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="art" value="art">
-            <label for="art">
+            <label data-target="art">
               <div class="card-polaroid">
                 <h2>Art</h2>
                 <%= image_tag "art.jpg" %>
@@ -74,7 +76,7 @@
 
           <div class="col-lg-3 col-md-6 interest-col">
             <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="music" value="music">
-            <label for="music">
+            <label data-target="music">
               <div class="card-polaroid">
                 <h2>Music</h2>
                 <%= image_tag "music.jpg" %>
@@ -84,7 +86,7 @@
 
           <div class="col-lg-3 col-md-6 interest-col">
             <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="history" value="history">
-            <label for="history">
+            <label data-target="history">
               <div class="card-polaroid">
                 <h2>History</h2>
                 <%= image_tag "history.jpg" %>
@@ -94,7 +96,7 @@
 
           <div class="col-lg-3 col-md-6 interest-col">
             <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="sport" value="sport">
-            <label for="sport">
+            <label data-target="sport">
               <div class="card-polaroid">
                 <h2>Sport</h2>
                 <%= image_tag "sport.jpg" %>
@@ -104,7 +106,7 @@
 
           <div class="col-lg-3 col-md-6 interest-col">
             <input class="image-checkbox" hidden type="checkbox" name="search[categories][]" id="shopping" value="shopping">
-            <label for="shopping">
+            <label data-target="shopping">
               <div class="card-polaroid">
                 <h2>Shopping</h2>
                 <%= image_tag "shopping.jpg" %>
@@ -113,7 +115,7 @@
           </div>
       </div>
       <h1>OR:</h1>
-      <div id="select-all-categories"type="button" class="btn btn-flat big-button"><p>Select All Categories</p></div>
+      <div id="select-all-categories" type="button" class="btn btn-flat big-button"><p><span>Select</span> All Categories</p></div>
     <% end %>
   </div>
 </div>

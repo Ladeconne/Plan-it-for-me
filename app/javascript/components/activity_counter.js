@@ -1,5 +1,4 @@
 const counter = document.querySelector("#counter");
-const activityCheckBoxes = document.querySelectorAll("input[type=checkbox]");
 const container = document.querySelector(".instructions");
 const nextText = document.querySelector(".prompt.next");
 const arrowBox = document.querySelector(".right-arrow");

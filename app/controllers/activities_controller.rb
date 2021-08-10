@@ -10,7 +10,6 @@ class ActivitiesController < ApplicationController
       ], "Museum" => [{ "type" => "location", "subType" => "POINT_OF_INTEREST", "id" => "EC7AE15DF5", "self" => { "href" => "https://test.api.amadeus.com/v1/reference-data/locations/pois/EC7AE15DF5", "methods" => ["GET"] }, "geoCode" => { "latitude" => 48.860825, "longitude" => 2.352633 }, "name" => "Centre Pompidou", "category" => "SIGHTS", "rank" => 5, "tags" => ["museum", "sightseeing", "restaurant", "artgallerie", "tourguide", "sights", "transport", "activities", "attraction", "shopping", "square", "parking", "professionalservices", "bus", "theater", "events", "commercialplace"] }]
     }
     # looping by category
-
     @activities = open_trip_map(activity_lists)
     # @activities = { "Religion" => Activity.all.sample(3), "Museum" => Activity.all.sample(4) }
   end
@@ -18,9 +17,10 @@ class ActivitiesController < ApplicationController
   def show
     @activity = Activity.find(params[:id])
     respond_to do |format|
-      format.json {
-        render json: { modal: render_to_string("_modal", formats: [:html], layout: false, locals: {activity: @activity } ) }
-      }
+      format.json do
+        render json: { modal: render_to_string("_modal", formats: [:html], layout: false,
+                                                         locals: { activity: @activity }) }
+      end
     end
   end
 
@@ -91,6 +91,7 @@ class ActivitiesController < ApplicationController
 
   def create_activity(activity_otm)
     return if activity_otm["name"].nil?
+
     activity = Activity.new
     activity.name = activity_otm["name"]
     if activity_otm["url"]
@@ -102,7 +103,7 @@ class ActivitiesController < ApplicationController
     if activity_otm["preview"]
       activity.picture_url = activity_otm["preview"]["source"]
     else
-      query = activity_otm["name"].gsub(" ","-")
+      query = activity_otm["name"].gsub(" ", "-")
       activity.picture_url = "https://source.unsplash.com/400x300/?#{query}"
     end
     if activity_otm["wikipedia_extracts"]

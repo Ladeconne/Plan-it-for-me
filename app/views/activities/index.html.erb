@@ -5,7 +5,7 @@
     <div class="row mb-1 mx-auto align-items-center">
       <div class="col-3">
         <p class="prompt prev">Prev</p>
-      </div>     
+      </div>
       <div class="col-6">
         <%= image_tag "cat2.svg", class: "progress-icon progress-b" %>
       </div>
@@ -62,8 +62,8 @@
               <div class="row horizontal-scroll">
                 <% activities.each do |activity| %>
                   <div class="col-lg-3 col-md-6 interest-col d-flex flex-column">
-                    <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name.truncate_words(4).downcase.gsub(' ', '_')%>" value="<%=activity.name %>">
-                    <label data-target="<%=activity.name.truncate_words(4).downcase.gsub(' ', '_') %>" data-fullname="<%= activity.name%>"><%= render 'shared/activity_card',  name: activity.name %></label>
+                    <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name.downcase.gsub(/['!\(\)#0-9 ]/, '_')%>" value="<%=activity.name %>">
+                    <label data-target="<%=activity.name.downcase.gsub(/['!\(\)#0-9 ]/, '_') %>" data-fullname="<%= activity.name%>"><%= render 'shared/activity_card',  name: activity.name, picture_url: activity.picture_url %></label>
                     <i class="fas fa-eye eyecon view-activity" data-id="<%= activity.id %>"></i>
                   </div>
                 <% end %>
@@ -75,4 +75,3 @@
     </div>
   </div>
 </div>
-

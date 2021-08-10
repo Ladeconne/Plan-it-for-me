@@ -40,3 +40,13 @@
   overflow-x: scroll;
   flex-wrap: nowrap;
 }
+
+.instructions {
+  p {
+    color: #6a8683;
+    margin: 0;
+    span {
+      color: #ed3b3b;
+    }
+  }
+}

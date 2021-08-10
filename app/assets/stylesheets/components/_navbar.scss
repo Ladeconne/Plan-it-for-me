@@ -31,12 +31,26 @@
   position: relative;
   bottom: -20px;
   &.progress-a {
-    margin-left: 33%;
+    margin-left: 14%;
   }
   &.progress-b {
-    margin-left: 60%;
+    margin-left: 72%;
   }
   &.progress-c {
     margin-left: 98%;
+  }
+}
+
+.prompt {
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: relative;
+  bottom: -33px;
+  &.next {
+    margin-left: 84%;
+  }
+  &.prev {
+    margin-left: -4%;
   }
 }

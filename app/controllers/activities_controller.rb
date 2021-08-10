@@ -19,9 +19,10 @@ class ActivitiesController < ApplicationController
   def show
     @activity = Activity.find(params[:id])
     respond_to do |format|
-      format.json {
-        render json: { modal: render_to_string("_modal", formats: [:html], layout: false, locals: {activity: @activity } ) }
-      }
+      format.json do
+        render json: { modal: render_to_string("_modal", formats: [:html], layout: false,
+                                                         locals: { activity: @activity }) }
+      end
     end
   end
 
@@ -86,7 +87,7 @@ class ActivitiesController < ApplicationController
     if activity_otm["preview"]
       activity.picture_url = activity_otm["preview"]["source"]
     else
-      query = activity_otm["name"].gsub(" ","-")
+      query = activity_otm["name"].gsub(" ", "-")
       activity.picture_url = "https://source.unsplash.com/400x300/?#{query}"
     end
     if activity_otm["wikipedia_extracts"]

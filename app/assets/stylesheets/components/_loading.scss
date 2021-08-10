@@ -320,13 +320,13 @@ $box-size: 30vw;
     right: 0;
     width: $box-size;
     height: $box-size;
-    border-radius: 50%;
+    border-radius: 80%;
     clip: rect(0 $box-size ($box-size / 2) 0);
     transform: rotate(10deg);
-    box-shadow:
-      inset 0 0 0 .5em,
-      inset 0 0 0 4.5em $cat-c2,
-      inset 0 0 0 5em;
+    // box-shadow:
+    //   inset 0 0 0 .5em,
+    //   inset 0 0 0 4.5em $cat-c2,
+    //   inset 0 0 0 5em;
   }
 }
 
@@ -415,7 +415,7 @@ $box-size: 30vw;
   display: none;
     // end
 
-  // display: flex;
+  // sdisplay: flex;
   flex: 1;
   flex-direction: column;
   justify-content: center;

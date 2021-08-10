@@ -28,6 +28,7 @@ import { initAutocomplete } from "../plugins/init_autocomplete";
 import { popUpWindow } from "../packs/popup";
 import { initLoader } from "../components/init_loader";
 import { selectAll } from "../components/select_all_categories";
+import { activityCounter } from "../components/activity_counter";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
@@ -41,4 +42,5 @@ document.addEventListener("turbolinks:load", () => {
   popUpWindow();
   initLoader();
   selectAll();
+  activityCounter();
 });

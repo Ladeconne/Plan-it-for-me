@@ -10,11 +10,11 @@
         <%= image_tag "cat2.svg", class: "progress-icon progress-b" %>
       </div>
       <div class="col-3">
-        <p class="prompt next">Next</p>
+        <p class="prompt next d-none">Next</p>
       </div>
     </div>
   <div class="row mb-4 align-items-center">
-    <div class="col-1">
+    <div class="col-1" style="height: 72px">
       <%= link_to :back do %>
         <i class="chevron fas fa-chevron-left"></i>
       <% end %>
@@ -27,10 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="col-1">
-      <button class="btn" type="submit" form='activity-form'>
-        <i class="chevron fas fa-chevron-right" id="load-button"></i>
-      </button>
+    <div class="col-1 right-arrow">
     </div>
   </div>
 </div>
@@ -39,7 +36,7 @@
   <div class="row">
     <div class="col-4">
       <h1>SELECT YOUR ACTIVITIES:</h1>
-      <div class="instructions">
+      <div class="instructions" data-max=" <%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*3%>">
       <!---Day Calculation is Wrong + Whys there no session date --->
         <p>Please select <%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*3%> activities for your trip</p>
         <p>You have selected <span id="counter">0</span>/<%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*3%> activities</p>
@@ -65,8 +62,8 @@
               <div class="row horizontal-scroll">
                 <% activities.each do |activity| %>
                   <div class="col-lg-3 col-md-6 interest-col d-flex flex-column">
-                    <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name.truncate_words(4)%>" value="<%=activity.name %>">
-                    <label for="<%=activity.name.truncate_words(4)%>"><%= render 'shared/activity_card',  name: activity.name %></label>
+                    <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name.truncate_words(4).downcase.gsub(' ', '_')%>" value="<%=activity.name %>">
+                    <label data-target="<%=activity.name.truncate_words(4).downcase.gsub(' ', '_') %>" data-fullname="<%= activity.name%>"><%= render 'shared/activity_card',  name: activity.name %></label>
                     <i class="fas fa-eye eyecon view-activity" data-id="<%= activity.id %>"></i>
                   </div>
                 <% end %>

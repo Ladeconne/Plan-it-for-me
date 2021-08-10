@@ -11,7 +11,6 @@ class ActivitiesController < ApplicationController
     #   ], "Museum" => [{ "type" => "location", "subType" => "POINT_OF_INTEREST", "id" => "EC7AE15DF5", "self" => { "href" => "https://test.api.amadeus.com/v1/reference-data/locations/pois/EC7AE15DF5", "methods" => ["GET"] }, "geoCode" => { "latitude" => 48.860825, "longitude" => 2.352633 }, "name" => "Centre Pompidou", "category" => "SIGHTS", "rank" => 5, "tags" => ["museum", "sightseeing", "restaurant", "artgallerie", "tourguide", "sights", "transport", "activities", "attraction", "shopping", "square", "parking", "professionalservices", "bus", "theater", "events", "commercialplace"] }]
     # }
     # looping by category
-
     @activities = open_trip_map(places_list)
     # @activities = { "Religion" => Activity.all.sample(3), "Museum" => Activity.all.sample(4) }
   end
@@ -31,9 +30,10 @@ class ActivitiesController < ApplicationController
   def filter_by_category(activities)
     # Get the categories chosen by the user
     categories = params[:search][:categories]
+    categories.map! { |category| category&.capitalize }
     # result
     places_list = {}
-    places_list = categories.map { |x| [x, []]}.to_h
+    places_list = categories.map { |x| [x, []] }.to_h
     tags = Tag.includes(:category).where(categories: { name: categories })
     activities.each do |activity|
       activity["tags"].each do |tag|

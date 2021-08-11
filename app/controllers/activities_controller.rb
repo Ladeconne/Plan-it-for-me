@@ -68,6 +68,9 @@ class ActivitiesController < ApplicationController
       activity_lists[category].each do |activity|
         lat = activity["geoCode"]["latitude"]
         lon = activity["geoCode"]["longitude"]
+
+        coords = [lat, lon]
+
         radius = 10_000 # 10000 metre around the coordinates given by Amadeus
         url = "https://api.opentripmap.com/0.1/en/places/radius?radius=#{radius}&lon=#{lon}&lat=#{lat}&apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
         response = JSON.parse(RestClient.get(url))
@@ -75,8 +78,8 @@ class ActivitiesController < ApplicationController
         place_url = "http://api.opentripmap.com/0.1/en/places/xid/#{id}?apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
         response = JSON.parse(RestClient.get(place_url))
 
-        unless create_activity(response).nil?
-          activity = create_activity(response)
+        unless create_activity(response, coords).nil?
+          activity = create_activity(response, coords)
           activity.save
           session[:activity_ids] = [*session[:activity_ids], activity.id]
           category_instance = Category.find_by_name(category)
@@ -88,7 +91,7 @@ class ActivitiesController < ApplicationController
     return new_activity_lists
   end
 
-  def create_activity(activity_otm)
+  def create_activity(activity_otm, coords)
     return if activity_otm["name"].empty?
 
     activity = Activity.new
@@ -110,9 +113,9 @@ class ActivitiesController < ApplicationController
     else
       activity.description = "Oups! Sorry we haven't find a specific description for this page, follow the link to have some on google :)"
     end
-    activity.address = "#{activity_otm['address']['pedestrian']}, #{activity_otm['address']['city']}, #{activity_otm['address']['country']}}"
-    activity.latitude = activity_otm["point"]["lat"]
-    activity.longitude = activity_otm["point"]["lon"]
+    activity.address = "#{activity_otm['address']['pedestrian']}, #{activity_otm['address']['city']}, #{activity_otm['address']['country']}"
+    activity.latitude = coords[0]
+    activity.longitude = coords[1]
     return activity
   end
 end

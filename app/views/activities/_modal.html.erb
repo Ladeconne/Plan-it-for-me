@@ -3,7 +3,7 @@
     <h2><%= @activity.name %></h2>
     <div class="row p-2">
       <div class="popup-desc col-7">
-        <%= @activity.description %>
+        <p><%= @activity.description %></p>
       </div>
       <div class="popup-image col-5">
         <%= image_tag @activity.picture_url, alt: "Image of #{@activity.name}", class: "popup-image" %>

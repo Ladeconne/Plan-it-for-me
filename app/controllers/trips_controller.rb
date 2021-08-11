@@ -6,9 +6,9 @@ class TripsController < ApplicationController
 
   def show
     @days = @trip.days.order(:date).distinct
-    set_activities
+    # set_activities
     @next_day = @trip.days.order(:date).first
-    @markers = @activities.map do |activity|
+    @markers = @activities.where.not(day_id: nil).map do |activity|
       {
         lat: activity.latitude,
         lng: activity.longitude,
@@ -40,10 +40,10 @@ class TripsController < ApplicationController
   def day
     @day = Day.find(params[:id])
     @trip = @day.trip
-    set_activities
+    # set_activities
     @next_day = @trip.days.where('id > ?', @day.id).first
     @prev_day = @trip.days.where('id < ?', @day.id).last
-    @markers = @activities.map do |activity|
+    @markers = @activities.geocoded.where.not(day_id: nil).map do |activity|
       {
         lat: activity.latitude,
         lng: activity.longitude,
@@ -175,7 +175,7 @@ class TripsController < ApplicationController
 
     @result = []
 
-    sorted_activities.each_slice(3).with_index do |slice, idx|
+    sorted_activities.each_slice(2).with_index do |slice, idx|
       day_activities = {
         day: days[idx],
         activities: slice

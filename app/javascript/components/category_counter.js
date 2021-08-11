@@ -25,7 +25,7 @@ const categoryCounter = () => {
     label.addEventListener("click", () => {
       const checkbox = document.querySelector(`#${label.dataset.target}`);
       checkbox.checked = !checkbox.checked;
-      checkedNumber() >= 1 ? injectArrow() : removeArrow();
+      checkedNumber() >= 4 ? injectArrow() : removeArrow();
     });
   });
 };

@@ -1,4 +1,5 @@
 import { initLoader } from "./init_loader";
+import Typed from 'typed.js';
 const counter = document.querySelector("#counter");
 const container = document.querySelector(".instructions");
 const nextText = document.querySelector(".prompt.next");
@@ -23,6 +24,31 @@ const removeArrow = () => {
   arrowBox.innerHTML = "";
 };
 
+const typeActivity = (checkbox) => {
+  let type_cat_id = `#selected-activities-${checkbox.dataset.category}`;
+  let type_id = `#typed_${checkbox.dataset.id}`;
+
+  const destination = document.querySelector(type_cat_id);
+
+  if ( document.querySelector(type_id) === null ) {
+    destination.insertAdjacentHTML('beforeend',
+    `<li><span id="typed_${checkbox.dataset.id}"></span></li>`
+    );
+    new Typed(type_id, {
+      strings: [checkbox.value],
+      showCursor: false,
+      typeSpeed: 30
+    });
+  } else {
+    new Typed(type_id, {
+    strings: [checkbox.value, ""],
+    showCursor: false,
+    backSpeed: 30,
+    onComplete: () => { document.querySelector(type_id).parentElement.remove(); },
+    });
+  }
+};
+
 const activityCounter = () => {
   if (!container) return;
   const activityNumber = parseInt(container.dataset.max);
@@ -35,8 +61,8 @@ const activityCounter = () => {
 
       checkbox.checked = !checkbox.checked;
       updateCounter();
-      // XXX
       activityNumber === checkedNumber() ? injectArrow() : removeArrow();
+      typeActivity(checkbox);
     });
   });
 };

@@ -21,4 +21,20 @@ body {
 
 .footer-icon {
   font-size: 25px;
+  span{
+    font-size: 1rem
+  }
+}
+
+#jess-github:hover {
+  color: $red
+}
+#lade-github:hover {
+  color: $blue
+}
+#tang-github:hover {
+  color: $yellow
+}
+#tann-github:hover {
+  color: $green
 }

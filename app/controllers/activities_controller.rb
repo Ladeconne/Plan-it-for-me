@@ -65,11 +65,14 @@ class ActivitiesController < ApplicationController
     new_activity_lists = {}
     activity_lists.keys.each do |category|
       new_activity_lists[category] = []
+      # binsin
       activity_lists[category].each do |activity|
         lat = activity["geoCode"]["latitude"]
         lon = activity["geoCode"]["longitude"]
 
         coords = [lat, lon]
+
+
 
         radius = 10_000 # 10000 metre around the coordinates given by Amadeus
         url = "https://api.opentripmap.com/0.1/en/places/radius?radius=#{radius}&lon=#{lon}&lat=#{lat}&apikey=" + ENV["OPEN_TRIP_MAP_KEY"]

@@ -5,7 +5,7 @@ class Activity < ApplicationRecord
   has_many :categories, through: :activity_categories
 
   geocoded_by :address
-  after_validation :geocode, if: :will_save_change_to_address?
+  # after_validation :geocode, if: :will_save_change_to_address?
 
   # validates :picture_url, :name, :address, presence: true
 end

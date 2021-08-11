@@ -36,18 +36,19 @@
   <div class="row">
     <div class="col-4">
       <h1>SELECT YOUR ACTIVITIES:</h1>
-      <div class="instructions" data-max=" <%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*3%>">
+      <div class="instructions" data-max=" <%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*2%>">
       <!---Day Calculation is Wrong + Whys there no session date --->
-        <p>Please select <%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*3%> activities for your trip</p>
-        <p>You have selected <span id="counter">0</span>/<%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*3%> activities</p>
+        <p>Please select <%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*2%> activities for your trip</p>
+        <p>You have selected <span id="counter">0</span>/<%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*2%> activities</p>
       </div>
       <div class="card-itinerary mt-5">
         <h2>Your Itinerary</h2>
         <div>
-          <% @activities.each_key do |category|  %>
-            <p><%= category %></p>
-            <ol id="<%= "selected-activities-#{category}" %>">
-            </ol>
+          <% @activities.each_key do |category, activities|  %>
+            <% next if activities.empty?  %>
+              <p><%= category %></p>
+              <ol id="<%= "selected-activities-#{category}" %>">
+              </ol>
           <% end %>
         </div>
       </div>
@@ -56,14 +57,20 @@
       <%= simple_form_for :search, url: your_trip_path, method: 'get', html: { id: 'activity-form' } do |f| %>
         <div class="row justify-content-center">
           <% @activities.each do |category, activities|  %>
-            <% next if activities.empty?  %>
             <div class="col-12">
-              <h2><%=category.upcase%></h2>
+              <% if activities.empty? %>
+                <h2><%=category.upcase%></h2>
+                <p>(No activities found)</p>
+              <% else %>
+                <h2><%=category.upcase%></h2>
+              <% end %>
               <div class="row horizontal-scroll">
                 <% activities.each do |activity| %>
-                  <div class="col-lg-3 col-md-6 interest-col d-flex flex-column">
+                  <div class="space-between">
                     <input class="image-checkbox" hidden type="checkbox" data-id="<%=activity.id%>" data-category="<%= category %>" name="search[<%= activity.id %>]" id="<%=activity.name.downcase.gsub(/[&'!\(\)#0-9, ]/, '_')%>" value="<%=activity.name %>">
-                    <label data-target="<%=activity.name.downcase.gsub(/[&'!\(\)#0-9, ]/, '_') %>" data-fullname="<%= activity.name%>"><%= render 'shared/activity_card',  name: activity.name, picture_url: activity.picture_url %></label>
+                    <label data-target="<%=activity.name.downcase.gsub(/[&'!\(\)#0-9, ]/, '_') %>" data-fullname="<%= activity.name%>">
+                      <%= render 'shared/activity_card',  name: activity.name, picture_url: activity.picture_url %>
+                    </label>
                     <i class="fas fa-eye eyecon view-activity" data-id="<%= activity.id %>"></i>
                   </div>
                 <% end %>

@@ -1,5 +1,5 @@
 .individual-activities-card {
-  width: 100%;
+  width: 250px;
   height: 216px;
   position: relative;
   border: 2px solid rgba(0, 0, 0, 0.4);
@@ -49,4 +49,8 @@
       color: #ed3b3b;
     }
   }
+}
+
+.space-between {
+  margin-right: 16px;
 }

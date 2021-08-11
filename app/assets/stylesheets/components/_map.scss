@@ -3,6 +3,10 @@
 }
 
 .mapboxgl-popup-content {
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
+  border: 3px solid rgba(0, 0, 0, 0.4);
+  text-align: left;
+  font-family: 'Roboto Mono', monospace;
+  .title {
+    font-size: 18px;
+  }
 }

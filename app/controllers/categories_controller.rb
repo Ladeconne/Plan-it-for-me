@@ -19,6 +19,8 @@ class CategoriesController < ApplicationController
 
   def valid?
     @today = Date.today
+    params[:search][:start_date] = params.dig(:search, :start_date).to_date
+    params[:search][:end_date] = params[:search][:start_date] + params.dig(:search, :start_duration).to_i.days
     unless params.dig(:search, :city).present?
       @errors = { city: 'Please add a valid location' }
       return false

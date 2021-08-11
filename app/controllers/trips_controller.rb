@@ -6,7 +6,7 @@ class TripsController < ApplicationController
 
   def show
     @days = @trip.days.order(:date).distinct
-    # set_activities
+    set_activities
     @next_day = @trip.days.order(:date).first
     @markers = @activities.where.not(day_id: nil).map do |activity|
       {
@@ -18,7 +18,6 @@ class TripsController < ApplicationController
   end
 
   def edit
-
     @day = @trip.days.order(:date).distinct
   end
 
@@ -29,7 +28,7 @@ class TripsController < ApplicationController
     @days.each do |day|
       activity_ids = params[day.id.to_s][:activities] # array
       activity_ids.each do |id|
-          activity = Activity.find(id)
+        activity = Activity.find(id)
         activity.update(day_id: day.id)
       end
       # @trip.update(trip_params)
@@ -40,7 +39,7 @@ class TripsController < ApplicationController
   def day
     @day = Day.find(params[:id])
     @trip = @day.trip
-    # set_activities
+    set_activities
     @next_day = @trip.days.where('id > ?', @day.id).first
     @prev_day = @trip.days.where('id < ?', @day.id).last
     @markers = @activities.geocoded.where.not(day_id: nil).map do |activity|
@@ -87,7 +86,7 @@ class TripsController < ApplicationController
     @next = 0
     @prev = nil
     calculate_day_plan
-    Activity.where(id: session[:activity_ids]).update_all(trip_id: @trip.id)
+    # Activity.where(id: session[:activity_ids]).update_all(trip_id: @trip.id)
   end
 
   def next
@@ -182,12 +181,12 @@ class TripsController < ApplicationController
       }
 
       day_activities[:activities].each do |act|
-        act.update(day: day_activities[:day])
+        act.update(day: day_activities[:day]) unless act.day.present?
         session[:activity_ids].delete(act.id)
       end
       @result << day_activities
     end
-      @result = @result.reject {|r| !r[:day]}
+    @result = @result.reject { |r| !r[:day] }
     # city the user choose
     session[:trip_id] = @trip.id unless user_signed_in?
   end
@@ -201,7 +200,6 @@ class TripsController < ApplicationController
         info_window: render_to_string(partial: "info_window", locals: { activity: activity })
       }
     end
-
   end
 
   def trip_params

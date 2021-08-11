@@ -30,7 +30,6 @@ import { initLoader } from "../components/init_loader";
 import { selectAll } from "../components/select_all_categories";
 import { activityCounter } from "../components/activity_counter";
 import { categoryCounter } from "../components/category_counter";
-import { popUpWindowTrip } from "../components/pop_up_trip";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
@@ -46,5 +45,4 @@ document.addEventListener("turbolinks:load", () => {
   categoryCounter();
   activityCounter();
   initLoader();
-  popUpWindowTrip();
 });

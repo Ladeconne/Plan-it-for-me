@@ -8,7 +8,7 @@ class TripsController < ApplicationController
     @days = @trip.days.order(:date).distinct
     set_activities
     @next_day = @trip.days.order(:date).first
-    @markers = @activities.where.not(day_id: nil).map do |activity|
+    @markers = @trip.activities.where.not(day_id: nil).map do |activity|
       {
         lat: activity.latitude,
         lng: activity.longitude,
@@ -42,7 +42,7 @@ class TripsController < ApplicationController
     set_activities
     @next_day = @trip.days.where('id > ?', @day.id).first
     @prev_day = @trip.days.where('id < ?', @day.id).last
-    @markers = @activities.geocoded.where.not(day_id: nil).map do |activity|
+    @markers = @trip.activities.geocoded.where.not(day_id: nil).map do |activity|
       {
         lat: activity.latitude,
         lng: activity.longitude,
@@ -86,7 +86,22 @@ class TripsController < ApplicationController
     @next = 0
     @prev = nil
     calculate_day_plan
-    # Activity.where(id: session[:activity_ids]).update_all(trip_id: @trip.id)
+
+    Activity.where(id: session[:activity_ids]).update_all(trip_id: @trip.id)
+
+    acts = []
+    @result.each do |t|
+      acts << t[:activities] # [[act1, act2], [act4]]
+    end
+
+    @markers = acts.flatten.map do |activity|
+      {
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+      }
+    end
+    # binding.pry
   end
 
   def next
@@ -134,7 +149,8 @@ class TripsController < ApplicationController
   def calculate_day_plan
     # current_user = User.find_by_id(session[:current_user_id])
     # activities that the user choosed
-    @markers = @trip.activities.map do |activity|
+
+    @markers = @trip.activities.where.not(day_id: nil).map do |activity|
       {
         lat: activity.latitude,
         lng: activity.longitude,
@@ -187,6 +203,7 @@ class TripsController < ApplicationController
       @result << day_activities
     end
     @result = @result.reject { |r| !r[:day] }
+
     # city the user choose
     session[:trip_id] = @trip.id unless user_signed_in?
   end

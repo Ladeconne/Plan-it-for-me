@@ -5,7 +5,7 @@ class Trip < ApplicationRecord
   has_many :activities, dependent: :nullify
 
   validates :city, :start_date, presence: true
-  validates :end_date, presence: true
+  # validates :duration, presence: true
   validate :end_after_start?, on: :create
   validate :date_future?, on: :create
 

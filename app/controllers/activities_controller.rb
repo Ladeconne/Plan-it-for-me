@@ -61,7 +61,6 @@ class ActivitiesController < ApplicationController
   end
 
   def open_trip_map(activity_lists)
-
     new_activity_lists = {}
     activity_lists.keys.each do |category|
       new_activity_lists[category] = []
@@ -75,14 +74,14 @@ class ActivitiesController < ApplicationController
         place_url = "http://api.opentripmap.com/0.1/en/places/xid/#{id}?apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
         response = JSON.parse(RestClient.get(place_url))
 
-        unless create_activity(response).nil?
-          activity = create_activity(response)
-          activity.save
-          session[:activity_ids] = [*session[:activity_ids], activity.id]
-          category_instance = Category.find_by_name(category)
-          ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
-          new_activity_lists[category] << activity # activity object
-        end
+        next if create_activity(response).nil?
+
+        activity = create_activity(response)
+        activity.save
+        session[:activity_ids] = [*session[:activity_ids], activity.id]
+        category_instance = Category.find_by_name(category)
+        ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
+        new_activity_lists[category] << activity # activity object
       end
     end
     return new_activity_lists

@@ -20,12 +20,15 @@ body {
 }
 
 .footer-icon {
-  font-size: 25px;
-  span{
-    font-size: 1rem
-  }
+  font-size: 24px;
 }
 
+.footer-hash {
+  font-size: 12px;
+  .footer-icon {
+    font-size: 16px;
+  }
+}
 #jess-github:hover {
   color: $red
 }

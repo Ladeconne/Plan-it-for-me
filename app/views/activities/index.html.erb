@@ -43,15 +43,14 @@
       </div>
       <div class="card-itinerary mt-5">
         <h2>Your Itinerary</h2>
-        <% @activities.each do |category, activities| %>
-          <% next if activities.empty?  %>
-            <p><%= category %></p>
-          <ol>
-          <% activities.each do |activity| %>
-            <li><p><%=activity.name%></p></li>
+        <div>
+          <% @activities.each do |category, activities|  %>
+            <% next if activities.empty?  %>
+              <p><%= category %></p>
+              <ol id="<%= "selected-activities-#{category}" %>">
+              </ol>
           <% end %>
-          </ol>
-        <% end %>
+        </div>
       </div>
     </div>
     <div class="col-8">
@@ -67,9 +66,11 @@
               <% end %>
               <div class="row horizontal-scroll">
                 <% activities.each do |activity| %>
-                  <div class="col-lg-3 col-md-6 interest-col d-flex flex-column">
-                    <input class="image-checkbox" hidden type="checkbox" name="search[<%= activity.id %>]" id="<%=activity.name.downcase.gsub(/[&'!\(\)#0-9, ]/, '_')%>" value="<%=activity.name %>">
-                    <label data-target="<%=activity.name.downcase.gsub(/[&'!\(\)#0-9, ]/, '_') %>" data-fullname="<%= activity.name%>"><%= render 'shared/activity_card',  name: activity.name, picture_url: activity.picture_url %></label>
+                  <div class="space-between">
+                    <input class="image-checkbox" hidden type="checkbox" data-id="<%=activity.id%>" data-category="<%= category %>" name="search[<%= activity.id %>]" id="<%=activity.name.downcase.gsub(/[&'!\(\)#0-9, ]/, '_')%>" value="<%=activity.name %>">
+                    <label data-target="<%=activity.name.downcase.gsub(/[&'!\(\)#0-9, ]/, '_') %>" data-fullname="<%= activity.name%>">
+                      <%= render 'shared/activity_card',  name: activity.name, picture_url: activity.picture_url %>
+                    </label>
                     <i class="fas fa-eye eyecon view-activity" data-id="<%= activity.id %>"></i>
                   </div>
                 <% end %>

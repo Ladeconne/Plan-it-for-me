@@ -44,7 +44,7 @@
       <div class="card-itinerary mt-5">
         <h2>Your Itinerary</h2>
         <div>
-          <% @activities.each_key do |category, activities|  %>
+          <% @activities.each do |category, activities|  %>
             <% next if activities.empty?  %>
               <p><%= category %></p>
               <ol id="<%= "selected-activities-#{category}" %>">

@@ -2,8 +2,8 @@ class ActivitiesController < ApplicationController
   # before_activity :set_trip, only: %i[edit update]
   def index
     # Do not uncomment until production (call_amadeus is using our quota)
-    places_list = AmadeusApiCall.new(session.dig(:city)).call
-    places_list = filter_by_category(places_list)
+    # places_list = AmadeusApiCall.new(session.dig(:city)).call
+    # places_list = filter_by_category(places_list)
     # This activity lists is the result we had when callig amadeus and filtering by Religion and Museum
     # activity_lists = {
     #   "Religion" => [
@@ -12,8 +12,8 @@ class ActivitiesController < ApplicationController
     #   ], "Museum" => [{ "type" => "location", "subType" => "POINT_OF_INTEREST", "id" => "EC7AE15DF5", "self" => { "href" => "https://test.api.amadeus.com/v1/reference-data/locations/pois/EC7AE15DF5", "methods" => ["GET"] }, "geoCode" => { "latitude" => 48.860825, "longitude" => 2.352633 }, "name" => "Centre Pompidou", "category" => "SIGHTS", "rank" => 5, "tags" => ["museum", "sightseeing", "restaurant", "artgallerie", "tourguide", "sights", "transport", "activities", "attraction", "shopping", "square", "parking", "professionalservices", "bus", "theater", "events", "commercialplace"] }]
     # }
     # looping by category
-    @activities = open_trip_map(places_list).sort_by { |_a, b| -b.length }.to_h
-    # @activities = { "Religion" => Activity.all.sample(3), "Museum" => Activity.all.sample(4) }
+    # @activities = open_trip_map(places_list).sort_by { |_a, b| -b.length }.to_h
+    @activities = { "Religion" => Activity.all.sample(8), "Museum" => Activity.all.sample(8) }
   end
 
   def show
@@ -85,7 +85,6 @@ class ActivitiesController < ApplicationController
         category_instance = Category.find_by_name(category)
         ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
         new_activity_lists[category] << activity # activity object
-
       end
     end
     return new_activity_lists

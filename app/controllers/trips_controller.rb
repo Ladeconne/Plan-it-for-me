@@ -192,14 +192,28 @@ class TripsController < ApplicationController
   private
 
   def calculate_day_plan
+
+    activities = @trip.activities.where.not(day_id: nil)
+
+    ids = activities.map { |act| act.day_id }.uniq
+
+    urls = ['https://res.cloudinary.com/dozqozwjs/image/upload/v1628747759/love_1_azo6v7.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747763/love_2_lmpovo.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747766/love_3_tfswx3.png']
+
+    marker_images = {}
+
+    ids.each_with_index do |id, index|
+      marker_images[id] = urls[index]
+    end
     # current_user = User.find_by_id(session[:current_user_id])
     # activities that the user choosed
 
-    @markers = @trip.activities.where.not(day_id: nil).map do |activity|
+    @markers = activities.map do |activity|
       {
         lat: activity.latitude,
         lng: activity.longitude,
-        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity }),
+        image_url: marker_images[activity.day_id]
+
       }
     end
     # Date the user choose

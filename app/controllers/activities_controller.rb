@@ -6,7 +6,7 @@ class ActivitiesController < ApplicationController
     places_list = AmadeusApiCall.new(session.dig(:city)).call
     places_list = filter_by_category(places_list)
     @activities = open_trip_map(places_list).sort_by { |_a, b| -b.length }.to_h
-  rescue StandardError
+  rescue StandardError => err
     flash[:alert] = "Oups, something went wrong, try again ;)"
     redirect_to root_path
 

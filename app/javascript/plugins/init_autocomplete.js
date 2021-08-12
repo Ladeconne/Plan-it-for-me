@@ -7,7 +7,11 @@ const initAutocomplete = () => {
     places({ container: addressInput });
   }
   if (cityInput) {
-    places({ container: cityInput });
+    places({
+      container: cityInput,
+      language: 'en', // Receives results in German
+      type: 'city', // Search only for cities names
+    });
     // console.log("hello")
   }
 };

@@ -19,7 +19,7 @@ class AmadeusApiCall
   private
 
   def get_lat_long
-    data = Geocoder.search(@location).first&.data
-    return { latitude: data["lat"], longitude: data["lon"]}
+    data = Geocoder.search(@location).first&.data["geometry"]["coordinates"]
+    return { latitude: data[1], longitude: data[0] }
   end
 end

@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
       render 'pages/home'
       return
     end
-    session[:city] = params.dig(:search, :city)
+    session[:city] = params.dig(:search, :city).split(",").first
     session[:start_date] = params.dig(:search, :start_date)
     session[:end_date] = params.dig(:search, :end_date)
   end

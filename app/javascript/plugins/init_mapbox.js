@@ -24,10 +24,58 @@ const initMapbox = () => {
      const markers = JSON.parse(mapElement.dataset.markers);
      markers.forEach((marker) => {
       const popup = new mapboxgl.Popup().setHTML(marker.info_window);
-      new mapboxgl.Marker()
-        .setLngLat([ marker.lng, marker.lat ])
-        .setPopup(popup)
-        .addTo(map);
+
+      // const activity = document.getElementsByClassName("activity") // Array of activity name
+      // activity.forEach((name) => {
+      //   // console.log(entry);
+      //   name
+      // });
+      // if ()
+
+      if (marker.image_url) {
+        const element = document.createElement('div');
+        element.className = 'marker';
+        element.style.backgroundImage = `url('${marker.image_url}')`;
+        element.style.backgroundSize = 'contain';
+        element.style.width = '25px';
+        element.style.height = '25px';
+
+
+
+
+        // const date =  document.getElementsByClassName("date") // Array of date
+        // if (date.count === 1) {
+          new mapboxgl.Marker(element)
+            // color: "#FFFFFF",
+            // draggable: true
+            .setLngLat([ marker.lng, marker.lat ])
+            .setPopup(popup)
+            .addTo(map);
+          }  else {
+            new mapboxgl.Marker()
+            // color: "#FFFFFF",
+            // draggable: true
+            .setLngLat([ marker.lng, marker.lat ])
+            .setPopup(popup)
+            .addTo(map);
+
+            }
+
+
+      // } else if (date.count === 2) {
+      //   new mapboxgl.Marker({
+      //     color: "#FFFFFF",
+      //     draggable: true
+      //     }).setLngLat([ marker.lng, marker.lat ])
+      //     .setPopup(popup)
+      //     .addTo(map);
+      // }
+
+  // Create a HTML element for your custom marker
+
+
+
+
     });
     map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken,
                                       mapboxgl: mapboxgl }));

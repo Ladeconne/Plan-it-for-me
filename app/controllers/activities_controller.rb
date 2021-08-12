@@ -78,32 +78,31 @@ class ActivitiesController < ApplicationController
         coords = [lat, lon]
         begin
           tries = 0
-        radius = 10_000 # 10000 metre around the coordinates given by Amadeus
-        url = "https://api.opentripmap.com/0.1/en/places/radius?radius=#{radius}&lon=#{lon}&lat=#{lat}&apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
-        # byebug
-        response = JSON.parse(RestClient.get(url))
-        p response
-        id = response['features'].first['properties']['xid']
-        place_url = "http://api.opentripmap.com/0.1/en/places/xid/#{id}?apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
-        response = JSON.parse(RestClient.get(place_url))
-        p response
+          radius = 10_000 # 10000 metre around the coordinates given by Amadeus
+          url = "https://api.opentripmap.com/0.1/en/places/radius?radius=#{radius}&lon=#{lon}&lat=#{lat}&apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
+          # byebug
+          response = JSON.parse(RestClient.get(url))
+          p response
+          id = response['features'].first['properties']['xid']
+          place_url = "http://api.opentripmap.com/0.1/en/places/xid/#{id}?apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
+          response = JSON.parse(RestClient.get(place_url))
+          p response
 
-        next if create_activity(response, coords).nil?
+          next if create_activity(response, coords).nil?
 
-        activity = create_activity(response, coords)
-        activity.save
-        session[:activity_ids] = [*session[:activity_ids], activity.id]
-        category_instance = Category.find_by_name(category)
-        ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
-        new_activity_lists[category] << activity # activity object
-        rescue => exception
+          activity = create_activity(response, coords)
+          activity.save
+          session[:activity_ids] = [*session[:activity_ids], activity.id]
+          category_instance = Category.find_by_name(category)
+          ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
+          new_activity_lists[category] << activity # activity object
+        rescue
           tries += 1
           if tries > 5
             retry
           end
         end
-
-        end
+      end
     end
     return new_activity_lists
   end

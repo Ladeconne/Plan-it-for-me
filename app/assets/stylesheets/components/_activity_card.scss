@@ -1,14 +1,13 @@
 .individual-activities-card {
-  width: 250px;
+  width: 232px;
   height: 216px;
   position: relative;
   border: 2px solid rgba(0, 0, 0, 0.4);
   padding: 12px;
 
   p {
-    font-size: 11px;
+    font-size: 10px;
     text-align: left;
-    padding-top: 16px;
   }
 
   &:hover {
@@ -18,12 +17,16 @@
   img {
     width: 100%;
     border-radius: 1px;
-    max-height: 116px;
+    max-height: 140px;
     object-fit: cover;
   }
 
   .info-card {
     margin: 7px auto;
+  }
+
+  .card-info {
+    margin-top: 11px;
   }
 
   .activity-name {

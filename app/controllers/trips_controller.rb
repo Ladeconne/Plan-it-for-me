@@ -57,7 +57,7 @@ class TripsController < ApplicationController
   def day
     @day = Day.find(params[:id])
     @trip = @day.trip
-    set_activities
+    # set_activities
     @next_day = @trip.days.where('id > ?', @day.id).first
     @prev_day = @trip.days.where('id < ?', @day.id).last
 

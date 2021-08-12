@@ -1,4 +1,5 @@
 import { initLoader } from "./init_loader";
+
 const nextText = document.querySelector(".prompt.next");
 const arrowBox = document.querySelector(".right-arrow");
 

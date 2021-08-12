@@ -1,5 +1,7 @@
 import { initLoader } from "./init_loader";
 import Typed from "typed.js";
+import swal from "sweetalert";
+
 const counter = document.querySelector("#counter");
 const container = document.querySelector(".instructions");
 const nextText = document.querySelector(".prompt.next");
@@ -61,8 +63,17 @@ const activityCounter = () => {
     label.addEventListener("click", (e) => {
       if (e.target.classList.contains("eyecon")) return;
       const checkbox = document.querySelector(`#${label.dataset.target}`);
-      if (activityNumber === checkedNumber() && !checkbox.checked) return;
-
+      if (activityNumber === checkedNumber() && !checkbox.checked) {
+        swal({
+          position: "top-end",
+          icon: "success",
+          title:
+            "You have chosen enough activities for your trip. Please click on Next.",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        return;
+      }
       checkbox.checked = !checkbox.checked;
       updateCounter();
       activityNumber === checkedNumber() ? injectArrow() : removeArrow();

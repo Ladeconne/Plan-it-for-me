@@ -10,7 +10,7 @@ class TripsController < ApplicationController
     @next_day = @trip.days.order(:date).first
 
 
-    activities = @trip.activities.where.not(day_id: nil)
+    activities = @trip.days.map { |day| day.activities }.flatten
 
     ids = activities.map { |act| act.day_id }.uniq
 
@@ -61,7 +61,7 @@ class TripsController < ApplicationController
     @next_day = @trip.days.where('id > ?', @day.id).first
     @prev_day = @trip.days.where('id < ?', @day.id).last
 
-    activities = @trip.activities.where.not(day_id: nil)
+    activities = @day.activities
 
     ids = activities.map { |act| act.day_id }.uniq
 
@@ -108,16 +108,38 @@ class TripsController < ApplicationController
     else
       create
     end
-    @trip.days.destroy_all
-    if params[:search].present?
-      @trip.activities.update_all(trip_id: nil)
-      params[:search].each_key do |id|
-        Activity.find(id).update_columns(trip_id: @trip.id)
+
+
+
+
+
+
+    if @trip.activities.any? { |act| act.day }
+      # raise
+      @city = @trip.city
+
+
+       # {}
+
+      @result = @trip.days.map do |day|
+        {activities: Activity.where(day: day), day: day}
       end
+
+      # @result = [{activities: @trip.activities.where.not(day_id: nil)}]
+      # puts 9
+      @next = 1
+    else
+      @trip.days.destroy_all
+      if params[:search].present?
+        @trip.activities.update_all(trip_id: nil)
+        params[:search].each_key do |id|
+          Activity.find(id).update_columns(trip_id: @trip.id)
+        end
+      end
+      @next = 0
+      @prev = nil
+      calculate_day_plan
     end
-    @next = 0
-    @prev = nil
-    calculate_day_plan
 
     Activity.where(id: session[:activity_ids]).update_all(trip_id: @trip.id)
 
@@ -151,11 +173,51 @@ class TripsController < ApplicationController
 
   def next
     @trip = Trip.find(session[:current_trip])
-    calculate_day_plan
-    @day = @result[params[:day].to_i - 1]
-    @next = @result[params[:day].to_i] ? params[:day].to_i + 1 : nil
-    @prev = @next ? @next - 1 : params[:day].to_i - 1
+    # calculate_day_plan
+    day =  @trip.days[params[:day].to_i - 1]
+    @day = { day: @trip.days[params[:day].to_i - 1], activities: Activity.where(day: day) }
+
+
+
+    # @next = @result[params[:day].to_i] ? params[:day].to_i + 1 : nil
+    # @prev = @next ? @next - 1 : params[:day].to_i - 1
+
+    @next = params[:day].to_i + 1 unless params[:day].to_i == @trip.days.length
+    @prev = params[:day].to_i - 1 unless params[:day].to_i == 1
+
     @result = [@day]
+
+
+     activities = @trip.activities.where.not(day_id: nil)
+
+    ids = activities.map { |act| act.day_id }.uniq
+
+    urls = ['https://res.cloudinary.com/dozqozwjs/image/upload/v1628747759/love_1_azo6v7.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747763/love_2_lmpovo.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747766/love_3_tfswx3.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747759/love_1_azo6v7.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747763/love_2_lmpovo.png' ]
+
+    marker_images = {}
+
+    ids.each_with_index do |id, index|
+      marker_images[id] = urls[index]
+    end
+    # current_user = User.find_by_id(session[:current_user_id])
+    # activities that the user choosed
+
+    # raise
+
+    @markers = @day[:day].activities.map do |activity|
+      {
+        next: true,
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity }),
+        image_url: marker_images[activity.day_id]
+
+      }
+    end
+
+    # binding.pry
+        @city = @trip.city
+
     if @result[0] && @result[0][:day]
       @date = @result[0][:day][:date]
     else
@@ -170,12 +232,50 @@ class TripsController < ApplicationController
   end
 
   def prev
-    @trip = Trip.find(session[:current_trip])
-    calculate_day_plan
-    @day = @result[params[:day].to_i - 1]
-    @next = @result[params[:day].to_i] ? params[:day].to_i + 1 : nil
-    @prev = @next ? @next - 1 : params[:day].to_i - 1
+@trip = Trip.find(session[:current_trip])
+    # calculate_day_plan
+    day =  @trip.days[params[:day].to_i - 1]
+    @day = { day: @trip.days[params[:day].to_i - 1], activities: Activity.where(day: day) }
+
+
+
+    # @next = @result[params[:day].to_i] ? params[:day].to_i + 1 : nil
+    # @prev = @next ? @next - 1 : params[:day].to_i - 1
+
+    @next = params[:day].to_i + 1 unless params[:day].to_i == @trip.days.length
+    @prev = params[:day].to_i - 1 unless params[:day].to_i == 1
+
     @result = [@day]
+
+
+     activities = @trip.activities.where.not(day_id: nil)
+
+    ids = activities.map { |act| act.day_id }.uniq
+
+    urls = ['https://res.cloudinary.com/dozqozwjs/image/upload/v1628747759/love_1_azo6v7.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747763/love_2_lmpovo.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747766/love_3_tfswx3.png']
+
+    marker_images = {}
+
+    ids.each_with_index do |id, index|
+      marker_images[id] = urls[index]
+    end
+    # current_user = User.find_by_id(session[:current_user_id])
+    # activities that the user choosed
+
+    @markers = @day[:day].activities.map do |activity|
+      {
+        lol: 2,
+        lat: activity.latitude,
+        lng: activity.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity }),
+        image_url: marker_images[activity.day_id]
+
+      }
+    end
+
+    # binding.pry
+        @city = @trip.city
+
     if @result[0] && @result[0][:day]
       @date = @result[0][:day][:date]
     else

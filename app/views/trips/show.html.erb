@@ -47,7 +47,7 @@
                       <p class=""><%= day.date.strftime("%A, %b %d") %></p>
                     </div>
                     <div>
-                      <%= render 'day_edit_modal', day: day %>
+                      <%= render 'day_edit_modal', day: day, activities: @trip.activities %>
                     </div>
 
                   </div>

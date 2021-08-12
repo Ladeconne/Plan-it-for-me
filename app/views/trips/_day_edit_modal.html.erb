@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <% day.trip.activities.where(day: nil).each do |activity| %>
+        <% activities.where(day: nil).uniq { |a| a.name }.each do |activity| %>
           <div class="title d-flex justify-content-between">
             <div class="">
               <h4><%= activity.name %></h4>

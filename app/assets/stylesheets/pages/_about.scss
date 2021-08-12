@@ -1,46 +1,57 @@
-.card-about {
-  width: 80%;
-  position: relative;
-  border: 2px solid rgba(0, 0, 0, 0.4);
-  padding: 22px;
-  padding-bottom: 64px;
-  padding-top: 19px;
-
-  h2 {
-    font-weight: lighter;
-    font-size: 29px;
-    line-height: 38px;
-    text-align: center;
-    background-color: white;
-    position: absolute;
-    top: -5%;
-    left: 35%;
-    margin: auto;
-  }
-  img {
+#about {
+  .container {
     width: 100%;
-    border-radius: 1px;
-    object-fit: cover;
+  }
+  .card-about {
+    width: 80%;
+    position: relative;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    padding: 22px;
+    padding-bottom: 64px;
+    padding-top: 19px;
+
+    h2 {
+      font-weight: lighter;
+      font-size: 29px;
+      line-height: 38px;
+      text-align: center;
+      background-color: white;
+      position: absolute;
+      top: -5%;
+      left: 35%;
+      margin: auto;
+    }
+    img {
+      width: 100%;
+      border-radius: 1px;
+      object-fit: cover;
+    }
+
+    .info-card {
+      margin: 7px auto;
+    }
   }
 
-  .info-card {
-    margin: 7px auto;
+  a:hover {
+    text-decoration: none;
   }
-}
 
-a:hover {
-  text-decoration: none;
-}
-
-#jess-github:hover {
-  color: $red
-}
-#lade-github:hover {
-  color: $blue
-}
-#tang-github:hover {
-  color: $yellow
-}
-#tann-github:hover {
-  color: $green
+  .github {
+    p {
+      font-size: 17px;
+      font-weight: bolder;
+    }
+  }
+  #jess-github:hover {
+    color: $red;
+  }
+  #lade-github:hover {
+    color: $blue;
+  }
+  #tang-github:hover {
+    color: $yellow;
+  }
+  #tann-github:hover {
+    color: $green;
+  }
 }

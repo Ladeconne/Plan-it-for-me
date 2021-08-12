@@ -6,13 +6,31 @@ class TripsController < ApplicationController
 
   def show
     @days = @trip.days.order(:date).distinct
-    set_activities
+    # set_activities
     @next_day = @trip.days.order(:date).first
-    @markers = @trip.activities.where.not(day_id: nil).map do |activity|
+
+
+    activities = @trip.activities.where.not(day_id: nil)
+
+    ids = activities.map { |act| act.day_id }.uniq
+
+    urls = ['https://res.cloudinary.com/dozqozwjs/image/upload/v1628747759/love_1_azo6v7.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747763/love_2_lmpovo.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747766/love_3_tfswx3.png']
+
+    marker_images = {}
+
+    ids.each_with_index do |id, index|
+      marker_images[id] = urls[index]
+    end
+
+
+
+    @markers = activities.map do |activity|
       {
         lat: activity.latitude,
         lng: activity.longitude,
-        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity }),
+        image_url: marker_images[activity.day_id]
+
       }
     end
   end
@@ -42,11 +60,25 @@ class TripsController < ApplicationController
     set_activities
     @next_day = @trip.days.where('id > ?', @day.id).first
     @prev_day = @trip.days.where('id < ?', @day.id).last
-    @markers = @trip.activities.geocoded.where.not(day_id: nil).map do |activity|
+
+    activities = @trip.activities.where.not(day_id: nil)
+
+    ids = activities.map { |act| act.day_id }.uniq
+
+    urls = ['https://res.cloudinary.com/dozqozwjs/image/upload/v1628747759/love_1_azo6v7.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747763/love_2_lmpovo.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747766/love_3_tfswx3.png']
+
+    marker_images = {}
+
+    ids.each_with_index do |id, index|
+      marker_images[id] = urls[index]
+    end
+
+    @markers = activities.map do |activity|
       {
         lat: activity.latitude,
         lng: activity.longitude,
-        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity }),
+        image_url: marker_images[activity.day_id]
       }
     end
     @days = [@day]
@@ -94,11 +126,24 @@ class TripsController < ApplicationController
       acts << t[:activities] # [[act1, act2], [act4]]
     end
 
+
+    ids = acts.flatten.map { |act| act.day_id }.uniq
+
+    urls = ['https://res.cloudinary.com/dozqozwjs/image/upload/v1628747759/love_1_azo6v7.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747763/love_2_lmpovo.png', 'https://res.cloudinary.com/dozqozwjs/image/upload/v1628747766/love_3_tfswx3.png']
+
+    marker_images = {}
+
+    ids.each_with_index do |id, index|
+      marker_images[id] = urls[index]
+    end
+
+
     @markers = acts.flatten.map do |activity|
       {
         lat: activity.latitude,
         lng: activity.longitude,
-        info_window: render_to_string(partial: "info_window", locals: { activity: activity })
+        info_window: render_to_string(partial: "info_window", locals: { activity: activity }),
+        image_url: marker_images[activity.day_id]
       }
     end
     # binding.pry

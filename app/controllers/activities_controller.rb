@@ -89,7 +89,7 @@ class ActivitiesController < ApplicationController
 
           activity = create_activity(response, coords)
           activity.save
-          session[:activity_ids] = [*session[:activity_ids], activity.id]
+          session[:activity_ids] = [*session[:activity_ids], activity.id].uniq
           category_instance = Category.find_by_name(category)
           ActivityCategory.find_or_create_by(category: category_instance, activity: activity)
           new_activity_lists[category] << activity # activity object

@@ -1,5 +1,5 @@
 import { initLoader } from "./init_loader";
-import Typed from 'typed.js';
+import Typed from "typed.js";
 const counter = document.querySelector("#counter");
 const container = document.querySelector(".instructions");
 const nextText = document.querySelector(".prompt.next");
@@ -30,21 +30,24 @@ const typeActivity = (checkbox) => {
 
   const destination = document.querySelector(type_cat_id);
 
-  if ( document.querySelector(type_id) === null ) {
-    destination.insertAdjacentHTML('beforeend',
-    `<li><span id="typed_${checkbox.dataset.id}"></span></li>`
+  if (document.querySelector(type_id) === null) {
+    destination.insertAdjacentHTML(
+      "beforeend",
+      `<li><span id="typed_${checkbox.dataset.id}"></span></li>`
     );
     new Typed(type_id, {
       strings: [checkbox.value],
       showCursor: false,
-      typeSpeed: 30
+      typeSpeed: 30,
     });
   } else {
     new Typed(type_id, {
-    strings: [checkbox.value, ""],
-    showCursor: false,
-    backSpeed: 30,
-    onComplete: () => { document.querySelector(type_id).parentElement.remove(); },
+      strings: [checkbox.value, ""],
+      showCursor: false,
+      backSpeed: 30,
+      onComplete: () => {
+        document.querySelector(type_id).parentElement.remove();
+      },
     });
   }
 };
@@ -55,7 +58,8 @@ const activityCounter = () => {
 
   const labels = document.querySelectorAll("#activity-form label");
   labels.forEach((label) => {
-    label.addEventListener("click", () => {
+    label.addEventListener("click", (e) => {
+      if (e.target.classList.contains("eyecon")) return;
       const checkbox = document.querySelector(`#${label.dataset.target}`);
       if (activityNumber === checkedNumber() && !checkbox.checked) return;
 

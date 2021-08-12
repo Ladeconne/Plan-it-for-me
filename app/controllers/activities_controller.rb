@@ -3,17 +3,17 @@ class ActivitiesController < ApplicationController
   def index
     # Comment from 'begin' to 'end' if you are calling the API during your work
 
-    places_list = AmadeusApiCall.new(session.dig(:city)).call
-    places_list = filter_by_category(places_list)
-    @activities = open_trip_map(places_list).sort_by { |_a, b| -b.length }.to_h
-  rescue StandardError => err
-    flash[:alert] = "Oups, something went wrong, try again ;)"
-    redirect_to root_path
+    #   places_list = AmadeusApiCall.new(session.dig(:city)).call
+    #   places_list = filter_by_category(places_list)
+    #   @activities = open_trip_map(places_list).sort_by { |_a, b| -b.length }.to_h
+    # rescue StandardError => err
+    #   flash[:alert] = "Oups, something went wrong, try again ;)"
+    #   redirect_to root_path
 
     # comment first '@activities' and uncomment the next one if you are calling the API during your work
     # looping by category
     # @activities = open_trip_map(places_list).sort_by { |_a, b| -b.length }.to_h
-    # @activities = { "Religion" => Activity.all.sample(8), "Museum" => Activity.all.sample(8) }
+    @activities = { "Religion" => Activity.all.sample(8), "Museum" => Activity.all.sample(8) }
   end
 
   def show

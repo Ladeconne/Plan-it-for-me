@@ -4,6 +4,7 @@ class PagesController < ApplicationController
 
   def home
     session[:current_trip] = nil
+    session[:activity_ids] = []
   end
 
   def components

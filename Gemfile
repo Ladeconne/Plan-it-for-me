@@ -30,6 +30,7 @@ gem 'activerecord-session_store'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'devise'
+gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
 gem 'autoprefixer-rails', '10.2.5'
 gem 'font-awesome-sass'

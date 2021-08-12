@@ -1,8 +1,11 @@
 <div class="individual-activities-card">
   <%= image_tag picture_url %>
-  <div class="row overscroll justify-content-center align-items-center">
-    <div class="col-12 activity-name">
+  <div class="row card-info overscroll justify-content-center align-items-center">
+    <div class="col-9 activity-name">
       <p><%= name %></p>
+    </div>
+    <div class="col-3 text-left">
+      <i class="fas fa-eye eyecon view-activity" data-id="<%= id %>"></i>
     </div>
   </div>
 </div>

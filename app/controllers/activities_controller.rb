@@ -80,13 +80,10 @@ class ActivitiesController < ApplicationController
           tries = 0
           radius = 10_000 # 10000 metre around the coordinates given by Amadeus
           url = "https://api.opentripmap.com/0.1/en/places/radius?radius=#{radius}&lon=#{lon}&lat=#{lat}&apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
-          # byebug
           response = JSON.parse(RestClient.get(url))
-          p response
           id = response['features'].first['properties']['xid']
           place_url = "http://api.opentripmap.com/0.1/en/places/xid/#{id}?apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
           response = JSON.parse(RestClient.get(place_url))
-          p response
 
           next if create_activity(response, coords).nil?
 

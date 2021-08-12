@@ -37,7 +37,6 @@
     <div class="col-4">
       <h1>SELECT YOUR ACTIVITIES:</h1>
       <div class="instructions" data-max=" <%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*2%>">
-      <!---Day Calculation is Wrong + Whys there no session date --->
         <p>Please select <%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*2%> activities for your trip</p>
         <p>You have selected <span id="counter">0</span>/<%= ((session[:end_date].to_date - session[:start_date].to_date).to_i + 1)*2%> activities</p>
       </div>
@@ -69,9 +68,8 @@
                   <div class="space-between">
                     <input class="image-checkbox" hidden type="checkbox" data-id="<%=activity.id%>" data-category="<%= category %>" name="search[<%= activity.id %>]" id="<%=activity.name.downcase.gsub(/[&'!\(\)#0-9, ]/, '_')%>" value="<%=activity.name %>">
                     <label data-target="<%=activity.name.downcase.gsub(/[&'!\(\)#0-9, ]/, '_') %>" data-fullname="<%= activity.name%>">
-                      <%= render 'shared/activity_card',  name: activity.name, picture_url: activity.picture_url %>
+                      <%= render 'shared/activity_card',  name: activity.name, id:activity.id, picture_url: activity.picture_url %>
                     </label>
-                    <i class="fas fa-eye eyecon view-activity" data-id="<%= activity.id %>"></i>
                   </div>
                 <% end %>
               </div>

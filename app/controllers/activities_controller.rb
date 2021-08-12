@@ -73,6 +73,7 @@ class ActivitiesController < ApplicationController
 
         radius = 10_000 # 10000 metre around the coordinates given by Amadeus
         url = "https://api.opentripmap.com/0.1/en/places/radius?radius=#{radius}&lon=#{lon}&lat=#{lat}&apikey=" + ENV["OPEN_TRIP_MAP_KEY"]
+        byebug
         response = JSON.parse(RestClient.get(url))
         id = response['features'].first['properties']['xid']
         place_url = "http://api.opentripmap.com/0.1/en/places/xid/#{id}?apikey=" + ENV["OPEN_TRIP_MAP_KEY"]

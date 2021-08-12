@@ -5,7 +5,8 @@ class AmadeusApiCall
     when "development"
       @amadeus = Amadeus::Client.new(client_id: AMADEUS_CLIENT_ID, client_secret: AMADEUS_CLIENT_SECRET)
     when "production"
-      @amadeus = Amadeus::Client.new(client_id: AMADEUS_CLIENT_ID, client_secret: AMADEUS_CLIENT_SECRET, hostname: :production)
+      @amadeus = Amadeus::Client.new(client_id: AMADEUS_CLIENT_ID, client_secret: AMADEUS_CLIENT_SECRET,
+                                     hostname: :production)
     end
     @location = location
   end
@@ -19,7 +20,10 @@ class AmadeusApiCall
   private
 
   def get_lat_long
-    data = Geocoder.search(@location).first&.data["geometry"]["coordinates"]
-    return { latitude: data[1], longitude: data[0] }
+    geocode = Geocoder.search(@location)
+    geofirst = geocode.first
+    data = geofirst&.data
+    coordinates = data["geometry"]["coordinates"]
+    return { latitude: coordinates[1], longitude: coordinates[0] }
   end
 end

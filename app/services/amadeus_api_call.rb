@@ -12,7 +12,7 @@ class AmadeusApiCall
 
   def call
     # Add the attribute  of production
-    response = @amadeus.reference_data.locations.points_of_interest.get(**get_lat_long, page: { limit: 40 }, radius: 10)
+    response = @amadeus.reference_data.locations.points_of_interest.get(**get_lat_long, page: { limit: 10 }, radius: 10)
     response.data.map { |result| result.slice("geoCode", "tags") }.uniq
   end
 

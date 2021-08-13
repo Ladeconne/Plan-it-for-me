@@ -1,6 +1,10 @@
 // Specific CSS for your home-page
 
 #home {
+  height: calc(100vh - 90px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .content {
     display: grid;
     grid-template-columns: 1fr 0.7fr;
@@ -82,4 +86,8 @@
   .picture-card {
     overflow-x: clip;
   }
+}
+
+.description {
+  text-align: center;
 }

@@ -1,4 +1,42 @@
 .card-polaroid {
+  width: 244px;
+  height: 234px;
+  position: relative;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  padding: 12px;
+  padding-bottom: 52px;
+  padding-top: 29px;
+  &:hover {
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  h2 {
+    font-weight: lighter;
+    font-size: 29px;
+    line-height: 38px;
+    text-align: center;
+    background-color: white;
+    position: absolute;
+    top: -4%;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    width: 60%;
+  }
+  img {
+    width: 100%;
+    border-radius: 1px;
+    max-height: 220px;
+    object-fit: cover;
+  }
+
+  .info-card {
+    margin: 7px auto;
+  }
+}
+
+.card-map {
   width: 100%;
   position: relative;
   border: 2px solid rgba(0, 0, 0, 0.4);
